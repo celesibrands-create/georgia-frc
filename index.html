@@ -35,6 +35,10 @@ header{position:relative;z-index:20;display:flex;align-items:center;justify-cont
 .header-actions{display:flex;align-items:center;gap:14px;}
 .hist-btn{background:var(--btn-grad);border:1px solid var(--border2);color:var(--muted);font-size:12px;font-family:var(--font-mono);padding:6px 12px;border-radius:8px;cursor:pointer;transition:all .2s;}
 .hist-btn:hover{color:var(--white);border-color:var(--white);}
+.mode-tabs{display:flex;gap:4px;background:rgba(255,255,255,0.05);border-radius:10px;padding:4px;}
+.mode-tab{display:flex;align-items:center;padding:7px 16px;border:none;border-radius:8px;background:none;color:var(--muted);cursor:pointer;transition:all .2s;}
+.mode-tab:hover{color:var(--white);}
+.mode-tab.active{background:linear-gradient(135deg,rgba(201,0,0,0.2),rgba(125,18,2,0.1));color:var(--white);border:1px solid rgba(201,0,0,0.3);}
 
 /* PROGRESS (hidden - replaced by sidebar nav) */
 
@@ -259,11 +263,18 @@ header{position:relative;z-index:20;display:flex;align-items:center;justify-cont
 <body>
 
 <header>
-  <div style="font-size:11px;font-family:var(--font-mono);color:var(--muted);display:flex;align-items:center;gap:8px;">
-    <span style="color:var(--accent)">●</span>
-    <span>Florida Rental Car</span>
-    <span style="opacity:.4">›</span>
-    <span style="color:var(--white)">Prompt Engine</span>
+  <div style="display:flex;align-items:center;gap:6px;">
+    <span style="font-size:11px;font-family:var(--font-mono);color:var(--muted);margin-right:8px;">Florida Rental Car</span>
+    <div class="mode-tabs">
+      <button class="mode-tab active" id="mode-georgia" onclick="setMode('georgia')">
+        <span style="font-family:var(--font-display);font-size:16px;letter-spacing:.05em;">GeorgIA</span>
+        <span style="font-size:9px;font-family:var(--font-mono);opacity:.6;margin-left:4px;">Carros + Pessoas</span>
+      </button>
+      <button class="mode-tab" id="mode-jarvis" onclick="setMode('jarvis')">
+        <span style="font-family:var(--font-display);font-size:16px;letter-spacing:.05em;">Jarvis</span>
+        <span style="font-size:9px;font-family:var(--font-mono);opacity:.6;margin-left:4px;">Só Pessoas</span>
+      </button>
+    </div>
   </div>
   <div class="header-actions">
     <button class="hist-btn" onclick="toggleHistory()">📋 Histórico</button>
@@ -693,6 +704,8 @@ const OPTIONS = {
 /* ============================================================
    STATE
 ============================================================ */
+let APP_MODE = 'georgia'; // 'georgia' or 'jarvis'
+
 let S = {
   catId:null,modelId:null,scenarioId:null,
   charCount:1,ageIds:['adults'],profileId:'Família em férias',
@@ -821,6 +834,39 @@ function selectOpt(key,val){S[key]=val;renderOptions();}
 /* ============================================================
    TABS
 ============================================================ */
+function setMode(mode){
+  APP_MODE = mode;
+  document.getElementById('mode-georgia').classList.toggle('active', mode==='georgia');
+  document.getElementById('mode-jarvis').classList.toggle('active', mode==='jarvis');
+
+  // Show/hide cars nav item
+  const carsBtn = document.getElementById('tb-cars');
+  if(carsBtn) carsBtn.style.display = mode==='georgia' ? '' : 'none';
+
+  // In Jarvis mode: model not required for generate button
+  updateGenBtn();
+
+  // In Jarvis mode reset car selection
+  if(mode==='jarvis'){
+    S.catId=null; S.modelId=null;
+    switchTab('reference');
+  } else {
+    switchTab('reference');
+  }
+
+  // Update sidebar brand icon
+  const brandName = document.querySelector('.sidebar-brand-name');
+  const brandSub = document.querySelector('.sidebar-brand-sub');
+  const brandIcon = document.querySelector('.sidebar-brand-icon');
+  if(brandName) brandName.textContent = mode==='jarvis' ? 'Jarvis' : 'GeorgIA';
+  if(brandSub) brandSub.textContent = mode==='jarvis' ? 'Personagens · FRC' : 'Prompt Engine · FRC';
+  if(brandIcon) brandIcon.textContent = mode==='jarvis' ? 'J' : 'G';
+
+  // Update genBtn label
+  const genBtn = document.querySelector('.gen-btn span:first-child');
+  if(genBtn) genBtn.textContent = mode==='jarvis' ? 'GERAR PROMPT JARVIS' : 'GERAR PROMPT';
+}
+
 function switchTab(name){
   document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
@@ -856,11 +902,19 @@ function updateSummary(){
 function updateGenBtn(){
   const btn=document.getElementById('genBtn');
   const status=document.getElementById('genStatus');
-  const ready=S.modelId&&S.scenarioId;
+  const isJarvis = APP_MODE === 'jarvis';
+  const ready = isJarvis ? !!S.scenarioId : (S.modelId && S.scenarioId);
   btn.disabled=!ready;
   if(ready){
-    const car=findModel(S.modelId);const sc=findScenario(S.scenarioId);
-    status.innerHTML=`<span class="status-ok">✓ ${car.name}<br>${sc.name}</span>`;
+    const sc=findScenario(S.scenarioId);
+    if(isJarvis){
+      status.innerHTML=`<span class="status-ok">✓ Jarvis<br>${sc.name}</span>`;
+    } else {
+      const car=findModel(S.modelId);
+      status.innerHTML=`<span class="status-ok">✓ ${car.name}<br>${sc.name}</span>`;
+    }
+  } else if(APP_MODE==='jarvis'){
+    status.innerHTML='Selecione<br>um cenário';
   } else if(S.modelId){
     status.innerHTML='Selecione<br>um cenário';
   } else {
@@ -970,6 +1024,12 @@ function buildPrompt(){
   const fluxBase=' — perfect wheel geometry, undistorted body panels, photographic accuracy';
   const fluxSkin=S.charCount>0?' — subsurface scattering on skin, pore-level skin texture, photojournalism realism':'';
 
+  // Jarvis mode — people only, no car
+  if(APP_MODE === 'jarvis'){
+    const charBlockJarvis = S.charCount===0 ? 'empty scene, no people' : charBlock.replace(' —','');
+    return `${toneDesc.charAt(0).toUpperCase()+toneDesc.slice(1)}, ${estiloDesc}, ${angleDesc}, ${lens} — ${charBlockJarvis} — ${actionDesc.replace('along the road','in the scene').replace('at speed along the road','moving through the scene')} at ${sc.key} — natural ${sc.time.toLowerCase()} light, creating warm ambient illumination — crisp background with rich environmental context — hyper-realistic lifestyle photography, natural skin texture, authentic emotion${fluxSkin}${refBlock}.`;
+  }
+
   return `${toneDesc.charAt(0).toUpperCase()+toneDesc.slice(1)}, ${estiloDesc}, ${angleDesc}, ${lens} — ${charBlock} ${car.key} — ${actionDesc} along ${sc.key} — natural ${sc.time.toLowerCase()} light raking across the vehicle body, creating sharp specular highlights on chrome details and deep reflections across the paint surface — crisp background bokeh preserving environmental context without distraction — hyper-realistic commercial photography, natural skin texture, crisp metallic paint detail${fluxBase}${fluxSkin}${refBlock}.`;
 }
 
@@ -996,8 +1056,9 @@ function generate(){
   document.getElementById('promptText').textContent=prompt;
   document.getElementById('negText').textContent=buildNeg();
 
+  const modeTag = APP_MODE==='jarvis' ? '<span class="tag" style="border-color:rgba(42,157,232,.5);color:#2a9de8">🧬 Jarvis</span>' : (cat?`<span class="tag car">${cat.icon} ${car.name}</span>`:'');
   document.getElementById('outMeta').innerHTML=`
-    <span class="tag car">${cat.icon} ${car.name}</span>
+    ${modeTag}
     <span class="tag loc">📍 ${sc.name}</span>
     <span class="tag">${S.charCount===0?'só o carro':'👥 '+S.charCount+' pessoa'+(S.charCount>1?'s':'')+' · '+S.ageIds.map(id=>AGE_GROUPS.find(a=>a.id===id)?.label||'').filter(Boolean).join('+')}</span>
     <span class="tag">${S.formato}</span>
@@ -1044,16 +1105,37 @@ function resetAll(){
 ============================================================ */
 function applyPreset(name){
   const presets={
-    copa:{tom:'Dramático',angulo:'Frontal',acao:'Chegando',scenarioId:'hardrock'},
-    verao:{tom:'Lifestyle',angulo:'Lateral',acao:'Em movimento',scenarioId:'ocean_sunset'},
-    premium:{tom:'Premium/Luxo',angulo:'¾ traseiro',acao:'Saindo do carro',scenarioId:'brickell'},
-    familia:{tom:'Família',acao:'Entrando no carro',scenarioId:'disney_entrance',charCount:4,ageIds:['adults','kids'],profileId:'Família em férias'},
+    copa:{
+      catId:'escalade', modelId:'escalade_sport',
+      scenarioId:'hardrock',
+      charCount:2, ageIds:['adults'], profileId:'Casal',
+      tom:'Dramático', estilo:'Publicidade — impactante', angulo:'Frontal', acao:'Chegando'
+    },
+    verao:{
+      catId:'convertible', modelId:'mustang_conv',
+      scenarioId:'ocean_sunset',
+      charCount:2, ageIds:['adults'], profileId:'Casal',
+      tom:'Lifestyle', estilo:'Espontâneo — registro real', angulo:'Lateral', acao:'Em movimento'
+    },
+    premium:{
+      catId:'suv_elite7', modelId:'navigator',
+      scenarioId:'brickell',
+      charCount:1, ageIds:['adults'], profileId:'Executivo',
+      tom:'Premium/Luxo', estilo:'Editorial — ensaiado', angulo:'¾ traseiro', acao:'Saindo do carro'
+    },
+    familia:{
+      catId:'minivan7', modelId:'sienna',
+      scenarioId:'disney_entrance',
+      charCount:4, ageIds:['adults','kids'], profileId:'Família em férias',
+      tom:'Família', estilo:'Espontâneo — registro real', angulo:'Lateral', acao:'Entrando no carro'
+    },
   };
   const p=presets[name];if(!p)return;
   Object.assign(S,p);
+  // Keep current formato — user chooses that in options step
   renderCats();renderScenarios();renderCharacters();renderOptions();updateSummary();updateGenBtn();
-  // Presets go to cars to confirm vehicle (or generate if model set)
-  if(S.modelId){switchTab('cars');}else{switchTab('cars');}
+  // Go directly to options step (format is the only thing left to choose)
+  switchTab('options');
 }
 
 /* ============================================================
