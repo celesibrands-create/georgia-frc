@@ -7,11 +7,14 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg:#212130; --bg2:#1a1a27; --bg3:#272738;
-  --white:#f4f4f4; --cream:#ede8dc;
-  --accent:#c90000; --accent2:#7d1202; --accent3:#2a9de8;
+  --bg:#0d0d0d; --bg2:#1a1a1a; --bg3:#242424;
+  --bg4:#2e2e2e;
+  --white:#f5f5f5; --cream:#ede8dc;
+  --accent:#c90000; --accent2:#7d1202;
+  --accent-grad:linear-gradient(135deg,#e03030,#c90000);
+  --btn-grad:linear-gradient(135deg,#2e2e2e,#1e1e1e);
   --muted:#888; --muted2:#555;
-  --border:rgba(244,244,244,0.07); --border2:rgba(244,244,244,0.15);
+  --border:rgba(255,255,255,0.06); --border2:rgba(255,255,255,0.12);
   --font-display:'Bebas Neue',sans-serif;
   --font-body:'DM Sans',sans-serif;
   --font-mono:'DM Mono',monospace;
@@ -19,10 +22,10 @@
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
 body{background:var(--bg);color:var(--white);font-family:var(--font-body);min-height:100vh;overflow-x:hidden;}
-body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(130,160,220,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(130,160,220,0.03) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;}
+body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(ellipse at 20% 50%,rgba(201,0,0,0.04) 0%,transparent 60%),radial-gradient(ellipse at 80% 20%,rgba(255,255,255,0.02) 0%,transparent 50%);pointer-events:none;z-index:0;}
 
 /* HEADER */
-header{position:relative;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:18px 32px;border-bottom:1px solid var(--border);background:rgba(33,33,48,0.97);backdrop-filter:blur(10px);}
+header{position:relative;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:14px 28px;border-bottom:1px solid var(--border);background:#111111;backdrop-filter:blur(10px);}
 .logo{display:flex;align-items:center;gap:12px;}
 .logo-text{font-family:var(--font-display);font-size:28px;letter-spacing:0.06em;color:var(--white);line-height:1;}
 .logo-badge{background:var(--accent);color:var(--white);font-size:9px;font-family:var(--font-mono);padding:3px 7px;border-radius:4px;letter-spacing:0.1em;align-self:center;}
@@ -30,28 +33,33 @@ header{position:relative;z-index:20;display:flex;align-items:center;justify-cont
 .pulse{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;animation:pulse 2s ease-in-out infinite;margin-left:6px;vertical-align:middle;}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.6);}}
 .header-actions{display:flex;align-items:center;gap:14px;}
-.hist-btn{background:none;border:1px solid var(--border2);color:var(--muted);font-size:12px;font-family:var(--font-mono);padding:6px 12px;border-radius:8px;cursor:pointer;transition:all .2s;}
+.hist-btn{background:var(--btn-grad);border:1px solid var(--border2);color:var(--muted);font-size:12px;font-family:var(--font-mono);padding:6px 12px;border-radius:8px;cursor:pointer;transition:all .2s;}
 .hist-btn:hover{color:var(--white);border-color:var(--white);}
 
 /* PROGRESS (hidden - replaced by sidebar nav) */
 
 /* MAIN */
-.app{position:relative;z-index:1;display:grid;grid-template-columns:360px 1fr;min-height:calc(100vh - 60px);}
+.app{position:relative;z-index:1;display:grid;grid-template-columns:230px 1fr;min-height:calc(100vh - 60px);}
 
 /* LEFT SIDEBAR */
-.sidebar{border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;max-height:calc(100vh - 60px);}
-.sidebar-brand{padding:18px 16px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
-.sidebar-brand-icon{width:34px;height:34px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:18px;color:var(--white);}
+.sidebar{border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:hidden;max-height:calc(100vh - 60px);background:#111111;}
+.sidebar-brand{padding:20px 16px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.sidebar-brand-icon{width:36px;height:36px;background:var(--accent-grad);border-radius:10px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:20px;color:var(--white);box-shadow:0 4px 14px rgba(201,0,0,0.35);}
 .sidebar-brand-name{font-family:var(--font-display);font-size:22px;letter-spacing:.05em;color:var(--white);}
 .sidebar-brand-sub{font-size:10px;color:var(--muted);font-family:var(--font-mono);}
-.nav-section-label{font-size:10px;font-family:var(--font-mono);letter-spacing:.15em;text-transform:uppercase;color:var(--muted2);padding:10px 12px 4px;margin-top:4px;}
-.tab-nav{display:flex;flex-direction:column;gap:2px;padding:16px 12px;border-bottom:1px solid var(--border);}
-.tab-btn{display:flex;align-items:center;gap:10px;padding:10px 12px;font-size:13px;font-family:var(--font-body);font-weight:500;color:var(--muted);background:none;border:none;border-radius:10px;cursor:pointer;transition:all .2s;text-align:left;width:100%;}
+.nav-section-label{font-size:9px;font-family:var(--font-mono);letter-spacing:.18em;text-transform:uppercase;color:var(--muted2);padding:10px 14px 4px;margin-top:6px;}
+.tab-nav{display:flex;flex-direction:column;gap:2px;padding:14px 10px;border-bottom:1px solid var(--border);}
+.tab-btn{display:flex;align-items:center;gap:10px;padding:10px 14px;font-size:13px;font-family:var(--font-body);font-weight:500;color:var(--muted);background:none;border:1px solid transparent;border-radius:10px;cursor:pointer;transition:all .2s;text-align:left;width:100%;}
 .tab-btn .nav-icon{font-size:16px;width:22px;text-align:center;flex-shrink:0;}
-.tab-btn:hover{color:var(--white);background:rgba(244,244,244,0.05);}
-.tab-btn.active{color:var(--white);background:rgba(201,0,0,0.12);border:1px solid rgba(201,0,0,0.25);}
+.tab-btn:hover{color:var(--white);background:rgba(255,255,255,0.05);}
+.tab-btn.active{color:var(--white);background:linear-gradient(135deg,rgba(201,0,0,0.15),rgba(125,18,2,0.08));border:1px solid rgba(201,0,0,0.3);}
 .tab-btn.active .nav-icon{filter:none;}
-.tab-content{display:none;padding:16px;}
+.tab-content{display:none;padding:0;}
+.step-area{flex:1;overflow-y:auto;padding:28px 36px;}
+.step-header{margin-bottom:24px;}
+.step-title{font-family:var(--font-display);font-size:24px;letter-spacing:.04em;color:var(--white);margin-bottom:6px;}
+.step-sub{font-size:13px;color:var(--muted);font-weight:300;}
+.output-wrap{flex:1;overflow-y:auto;padding:28px 36px;background:#0d0d0d;}
 .tab-content.active{display:block;animation:fadeIn .2s ease;}
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
 
@@ -60,8 +68,24 @@ header{position:relative;z-index:20;display:flex;align-items:center;justify-cont
 .sec-label::after{content:'';flex:1;height:1px;background:var(--border);}
 
 /* CAR CATEGORIES */
-.cat-list{display:flex;flex-direction:column;gap:4px;margin-bottom:20px;}
-.cat-item{border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.25);}
+.cat-list{display:flex;flex-direction:column;gap:6px;margin-bottom:20px;}
+.cat-blocks{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:12px;margin-bottom:20px;}
+.cat-block{border:1px solid var(--border);border-radius:16px;padding:20px 16px;cursor:pointer;transition:all .2s;background:var(--bg2);text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.4);}
+.cat-block:hover{border-color:var(--border2);background:var(--bg3);transform:translateY(-2px);box-shadow:0 6px 20px rgba(0,0,0,0.5);}
+.cat-block.open{border-color:var(--accent);background:linear-gradient(135deg,rgba(201,0,0,0.1),rgba(125,18,2,0.04));}
+.cat-block-icon{font-size:28px;margin-bottom:8px;display:block;}
+.cat-block-name{font-size:12px;font-weight:500;color:var(--white);line-height:1.3;}
+.cat-block-models{display:none;grid-column:1/-1;animation:fadeIn .2s ease;}
+.cat-block-models.show{display:block;}
+.cat-block-models .model-grid{grid-template-columns:repeat(auto-fill,minmax(160px,1fr));}
+.preset-grid-center{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:16px;margin-bottom:20px;}
+.preset-card-big{border:1px solid var(--border);border-radius:16px;padding:24px 20px;cursor:pointer;transition:all .2s;background:var(--bg2);text-align:center;box-shadow:0 2px 12px rgba(0,0,0,0.4);}
+.preset-card-big:hover{border-color:var(--accent);background:linear-gradient(135deg,rgba(201,0,0,0.12),rgba(125,18,2,0.04));transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,0.5);}
+.preset-card-icon{font-size:36px;display:block;margin-bottom:12px;}
+.preset-card-name{font-size:15px;font-weight:600;color:var(--white);margin-bottom:6px;}
+.preset-card-sub{font-size:11px;color:var(--muted);font-family:var(--font-mono);}
+.ref-check-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:6px;}
+.cat-item{border:1px solid var(--border);border-radius:14px;overflow:hidden;box-shadow:0 2px 16px rgba(0,0,0,0.5);background:var(--bg2);}
 .cat-header{display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;transition:background .15s;border-radius:12px;}
 .cat-header:hover{background:rgba(244,244,244,0.04);}
 .cat-icon{font-size:16px;width:28px;text-align:center;flex-shrink:0;}
@@ -70,44 +94,44 @@ header{position:relative;z-index:20;display:flex;align-items:center;justify-cont
 .cat-item.open .cat-arrow{transform:rotate(90deg);}
 .cat-models{display:none;padding:0 10px 10px;border-top:1px solid var(--border);}
 .cat-item.open .cat-models{display:block;}
-.model-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:8px;}
-.model-btn{padding:9px 10px;border:1px solid var(--border);border-radius:10px;background:none;color:var(--muted);font-size:11px;font-family:var(--font-body);cursor:pointer;transition:all .15s;text-align:left;line-height:1.3;}
+.model-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:8px;margin-top:10px;}
+.model-btn{padding:9px 10px;border:1px solid var(--border);border-radius:10px;background:var(--bg3);color:var(--muted);font-size:11px;font-family:var(--font-body);cursor:pointer;transition:all .15s;text-align:left;line-height:1.3;}
 .model-btn:hover{border-color:var(--border2);color:var(--white);background:rgba(244,244,244,0.04);}
-.model-btn.selected{border-color:var(--accent);color:var(--white);background:linear-gradient(135deg,rgba(201,0,0,0.14),rgba(201,0,0,0.04));}
+.model-btn.selected{border-color:var(--accent);color:var(--white);background:linear-gradient(135deg,rgba(201,0,0,0.2),rgba(125,18,2,0.08));box-shadow:0 0 0 1px rgba(201,0,0,0.15);}
 .model-brand{font-size:9px;color:var(--muted);display:block;font-family:var(--font-mono);}
 
 /* SCENARIOS */
 .city-section{margin-bottom:18px;}
 .city-label{font-size:10px;font-family:var(--font-mono);color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px;padding-left:2px;}
-.scenario-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;}
-.sc-card{border:1px solid var(--border);border-radius:12px;padding:10px 11px;cursor:pointer;transition:all .15s;background:none;box-shadow:0 2px 8px rgba(0,0,0,0.2);}
+.scenario-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:8px;}
+.sc-card{border:1px solid var(--border);border-radius:12px;padding:10px 11px;cursor:pointer;transition:all .15s;background:var(--bg2);box-shadow:0 2px 12px rgba(0,0,0,0.35);}
 .sc-card:hover{border-color:var(--border2);background:rgba(244,244,244,0.03);}
-.sc-card.selected{border-color:var(--accent);background:linear-gradient(135deg,rgba(201,0,0,0.14),rgba(201,0,0,0.04));}
+.sc-card.selected{border-color:var(--accent);background:linear-gradient(135deg,rgba(201,0,0,0.2),rgba(125,18,2,0.06));box-shadow:0 0 0 1px rgba(201,0,0,0.15);}
 .sc-name{font-size:12px;font-weight:500;color:var(--white);line-height:1.3;margin-bottom:3px;}
 .sc-time{font-size:10px;color:var(--muted);font-family:var(--font-mono);}
 .sc-card.selected .sc-name{color:var(--accent);}
 
 /* CHARACTERS */
-.char-section{display:flex;flex-direction:column;gap:16px;}
-.count-row{display:flex;gap:5px;flex-wrap:wrap;}
-.count-btn{min-width:38px;height:42px;padding:0 8px;border:1px solid var(--border);border-radius:10px;background:none;color:var(--muted);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;}
+.char-section{display:flex;flex-direction:column;gap:20px;}
+.count-row{display:flex;gap:8px;flex-wrap:wrap;}
+.count-btn{min-width:52px;height:52px;padding:0 10px;border:1px solid var(--border);border-radius:12px;background:var(--bg2);color:var(--muted);font-size:16px;font-weight:500;cursor:pointer;transition:all .15s;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;}
 .count-btn .cb-sub{font-size:8px;font-family:var(--font-mono);margin-top:2px;color:var(--muted2);}
 .count-btn:hover{border-color:var(--border2);color:var(--white);}
-.count-btn.selected{border-color:var(--accent);background:linear-gradient(135deg,rgba(201,0,0,0.14),rgba(201,0,0,0.04));color:var(--accent);}
-.age-grid{display:grid;grid-template-columns:1fr;gap:5px;}
-.age-btn{padding:11px 14px;border:1px solid var(--border);border-radius:12px;background:none;cursor:pointer;transition:all .15s;text-align:left;}
+.count-btn.selected{border-color:var(--accent);background:linear-gradient(135deg,rgba(201,0,0,0.25),rgba(125,18,2,0.1));color:var(--white);}
+.age-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:8px;}
+.age-btn{padding:11px 14px;border:1px solid var(--border);border-radius:12px;background:var(--bg2);cursor:pointer;transition:all .15s;text-align:left;}
 .age-btn:hover{border-color:var(--border2);background:rgba(244,244,244,0.03);}
-.age-btn.selected{border-color:var(--accent);background:linear-gradient(135deg,rgba(201,0,0,0.14),rgba(201,0,0,0.04));}
+.age-btn.selected{border-color:var(--accent);background:linear-gradient(135deg,rgba(201,0,0,0.22),rgba(125,18,2,0.08));}
 .age-label{font-size:12px;font-weight:500;color:var(--white);display:block;margin-bottom:2px;}
 .age-sub{font-size:10px;color:var(--muted);font-family:var(--font-mono);}
 .age-btn.selected .age-label{color:var(--accent);}
 
 /* OPTIONS */
 .opt-section{margin-bottom:16px;}
-.opt-row{display:flex;gap:5px;flex-wrap:wrap;}
-.opt-chip{padding:7px 12px;border:1px solid var(--border);border-radius:8px;background:none;color:var(--muted);font-size:11px;font-family:var(--font-body);cursor:pointer;transition:all .15s;}
+.opt-row{display:flex;gap:8px;flex-wrap:wrap;}
+.opt-chip{padding:7px 12px;border:1px solid var(--border);border-radius:8px;background:var(--bg2);color:var(--muted);font-size:11px;font-family:var(--font-body);cursor:pointer;transition:all .15s;}
 .opt-chip:hover{border-color:var(--border2);color:var(--white);}
-.opt-chip.selected{border-color:var(--white);background:rgba(244,244,244,0.07);color:var(--white);}
+.opt-chip.selected{border-color:rgba(255,255,255,0.3);background:var(--btn-grad);color:var(--white);}
 
 /* REFERENCE TAB */
 .ref-drop{border:2px dashed var(--border2);border-radius:14px;padding:28px 20px;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:16px;position:relative;}
@@ -128,7 +152,7 @@ header{position:relative;z-index:20;display:flex;align-items:center;justify-cont
 
 /* RIGHT PANEL */
 .panel-right{display:flex;flex-direction:column;}
-.output-wrap{flex:1;padding:40px 48px;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;}
+
 
 /* EMPTY STATE */
 .empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;gap:14px;opacity:.25;}
@@ -145,19 +169,19 @@ header{position:relative;z-index:20;display:flex;align-items:center;justify-cont
 .tag.car{border-color:rgba(201,0,0,.5);color:var(--accent);}
 .tag.loc{border-color:rgba(201,0,0,.5);color:var(--accent);}
 .out-label{font-size:10px;font-family:var(--font-mono);letter-spacing:.2em;color:var(--muted);margin-bottom:10px;text-transform:uppercase;}
-.prompt-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:28px 30px;position:relative;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.5);}
+.prompt-card{background:#141414;border:1px solid rgba(201,0,0,0.15);border-radius:16px;padding:28px 30px;position:relative;overflow:hidden;box-shadow:0 8px 40px rgba(0,0,0,0.7),0 0 0 1px rgba(201,0,0,0.08);}
 .prompt-card::before{content:'❝';font-family:var(--font-display);font-size:60px;color:var(--accent);opacity:.1;position:absolute;top:4px;left:14px;line-height:1;pointer-events:none;}
 #promptText{font-size:13.5px;line-height:1.9;color:var(--white);font-weight:300;position:relative;z-index:1;}
-.neg-box{background:rgba(201,0,0,.05);border:1px solid rgba(201,0,0,.18);border-radius:10px;padding:12px 16px;}
+.neg-box{background:rgba(201,0,0,.04);border:1px solid rgba(201,0,0,.15);border-radius:10px;padding:12px 16px;}
 .neg-label{font-size:9px;font-family:var(--font-mono);color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:5px;}
 #negText{font-size:11px;color:var(--muted);font-family:var(--font-mono);line-height:1.6;}
 .action-row{display:flex;gap:8px;flex-wrap:wrap;}
 .btn{display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:10px;font-size:13px;font-family:var(--font-body);font-weight:500;cursor:pointer;transition:all .2s;border:none;}
-.btn-primary{background:var(--accent);color:var(--white);}
-.btn-primary:hover{background:var(--accent2);}
-.btn-outline{background:none;color:var(--white);border:1px solid var(--border2);}
-.btn-outline:hover{background:rgba(244,244,244,0.05);}
-.btn-ghost{background:none;color:var(--muted);border:1px solid var(--border);}
+.btn-primary{background:var(--accent-grad);color:var(--white);box-shadow:0 4px 14px rgba(201,0,0,0.35);}
+.btn-primary:hover{background:linear-gradient(135deg,#ff4444,#a00000);}
+.btn-outline{background:var(--btn-grad);color:var(--white);border:1px solid var(--border2);}
+.btn-outline:hover{background:linear-gradient(135deg,#383838,#242424);}
+.btn-ghost{background:var(--btn-grad);color:var(--muted);border:1px solid var(--border);}
 .btn-ghost:hover{color:var(--white);border-color:var(--border2);}
 
 /* JSON TOGGLE */
@@ -170,18 +194,18 @@ header{position:relative;z-index:20;display:flex;align-items:center;justify-cont
 #jsonText{font-family:var(--font-mono);font-size:11px;color:#92c492;white-space:pre-wrap;line-height:1.7;}
 
 /* PRESETS BAR */
-.presets-bar{padding:12px 48px;border-top:1px solid var(--border);background:rgba(33,33,48,.7);}
+.presets-bar{padding:10px 36px;border-top:1px solid var(--border);background:#0f0f0f;}
 .presets-label{font-size:9px;font-family:var(--font-mono);color:var(--muted);letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px;}
 .preset-pills{display:flex;gap:6px;flex-wrap:wrap;}
-.preset-pill{padding:7px 14px;border:1px solid var(--border2);border-radius:8px;background:none;color:var(--white);font-size:12px;font-family:var(--font-body);cursor:pointer;transition:all .2s;}
-.preset-pill:hover{border-color:var(--accent);background:rgba(201,0,0,0.08);color:var(--accent);}
+.preset-pill{padding:7px 14px;border:1px solid var(--border2);border-radius:8px;background:var(--btn-grad);color:var(--white);font-size:12px;font-family:var(--font-body);cursor:pointer;transition:all .2s;}
+.preset-pill:hover{border-color:var(--accent);background:linear-gradient(135deg,rgba(201,0,0,0.15),rgba(125,18,2,0.05));color:var(--accent);}
 
 /* GENERATE BAR */
-.gen-bar{padding:16px 48px;border-top:1px solid var(--border);display:flex;align-items:center;gap:14px;background:rgba(33,33,48,.95);}
-.gen-btn{flex:1;padding:15px 28px;background:var(--accent);color:var(--white);border:none;border-radius:12px;font-family:var(--font-display);font-size:20px;letter-spacing:.1em;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:10px;}
-.gen-btn:hover:not(:disabled){background:var(--accent2);transform:translateY(-1px);}
+.gen-bar{padding:16px 36px;border-top:1px solid var(--border);display:flex;align-items:center;gap:14px;background:#111111;}
+.gen-btn{flex:1;padding:15px 28px;background:var(--accent-grad);color:var(--white);border:none;border-radius:12px;font-family:var(--font-display);font-size:20px;letter-spacing:.1em;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 4px 20px rgba(201,0,0,0.4);}
+.gen-btn:hover:not(:disabled){background:linear-gradient(135deg,#ff3333,#a00000);transform:translateY(-2px);box-shadow:0 8px 28px rgba(201,0,0,0.5);}
 .gen-btn:active:not(:disabled){transform:translateY(0);}
-.gen-btn:disabled{background:var(--bg3);color:var(--muted2);cursor:not-allowed;}
+.gen-btn:disabled{background:var(--btn-grad);color:var(--muted2);cursor:not-allowed;box-shadow:none;border:1px solid var(--border);}
 .gen-arrow{transition:transform .2s;}
 .gen-btn:hover:not(:disabled) .gen-arrow{transform:translateX(4px);}
 .gen-status{font-size:11px;font-family:var(--font-mono);color:var(--muted);min-width:150px;text-align:right;line-height:1.5;}
@@ -193,13 +217,13 @@ header{position:relative;z-index:20;display:flex;align-items:center;justify-cont
 ::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:3px;}
 
 /* SELECTION SUMMARY */
-.sel-summary{border-top:1px solid var(--border);padding:14px 20px;background:rgba(33,33,48,.8);}
+.sel-summary{border-top:1px solid var(--border);padding:14px 20px;background:#111111;}
 .sel-row{display:flex;gap:6px;flex-wrap:wrap;}
 .sel-pill{font-size:10px;font-family:var(--font-mono);padding:3px 8px;border-radius:4px;background:var(--bg3);color:var(--muted);max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .sel-pill.filled{color:var(--white);}
 
 /* HISTORY OVERLAY */
-.hist-overlay{position:fixed;top:0;right:-380px;width:360px;height:100vh;background:var(--bg2);border-left:1px solid var(--border);z-index:100;display:flex;flex-direction:column;transition:right .3s ease;box-shadow:-4px 0 24px rgba(0,0,0,0.4);}
+.hist-overlay{position:fixed;top:0;right:-380px;width:360px;height:100vh;background:#111111;border-left:1px solid var(--border);z-index:100;display:flex;flex-direction:column;transition:right .3s ease;box-shadow:-4px 0 24px rgba(0,0,0,0.4);}
 .hist-overlay.open{right:0;}
 .hist-header{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
 .hist-title{font-family:var(--font-display);font-size:20px;letter-spacing:.06em;}
@@ -215,7 +239,7 @@ header{position:relative;z-index:20;display:flex;align-items:center;justify-cont
 .hist-item-copy:hover{color:var(--white);border-color:var(--white);}
 .hist-empty{text-align:center;padding:40px 20px;color:var(--muted);font-size:13px;}
 .hist-footer{padding:14px 20px;border-top:1px solid var(--border);}
-.hist-clear{width:100%;padding:10px;background:none;border:1px solid rgba(201,0,0,.3);color:var(--accent);border-radius:8px;font-size:12px;font-family:var(--font-mono);cursor:pointer;transition:all .2s;}
+.hist-clear{width:100%;padding:10px;background:var(--btn-grad);border:1px solid rgba(201,0,0,.3);color:var(--accent);border-radius:8px;font-size:12px;font-family:var(--font-mono);cursor:pointer;transition:all .2s;}
 .hist-clear:hover{background:rgba(201,0,0,.1);}
 
 /* OVERLAY BACKDROP */
@@ -260,8 +284,15 @@ header{position:relative;z-index:20;display:flex;align-items:center;justify-cont
       </div>
     </div>
     <div class="tab-nav">
+      <div class="nav-section-label">Início</div>
+      <button class="tab-btn active" id="tb-reference" onclick="switchTab('reference')">
+        <span class="nav-icon">🖼</span> Referência
+      </button>
+      <button class="tab-btn" id="tb-presets" onclick="switchTab('presets')">
+        <span class="nav-icon">⚡</span> Preset Rápido
+      </button>
       <div class="nav-section-label">Configuração</div>
-      <button class="tab-btn active" id="tb-cars" onclick="switchTab('cars')">
+      <button class="tab-btn" id="tb-cars" onclick="switchTab('cars')">
         <span class="nav-icon">🚗</span> Categoria
       </button>
       <button class="tab-btn" id="tb-scenarios" onclick="switchTab('scenarios')">
@@ -273,79 +304,6 @@ header{position:relative;z-index:20;display:flex;align-items:center;justify-cont
       <button class="tab-btn" id="tb-options" onclick="switchTab('options')">
         <span class="nav-icon">⚙️</span> Opções
       </button>
-      <div class="nav-section-label">Criativo</div>
-      <button class="tab-btn" id="tb-reference" onclick="switchTab('reference')">
-        <span class="nav-icon">🖼</span> Referência
-      </button>
-    </div>
-
-    <div class="tab-content active" id="tab-cars">
-      <div class="sec-label">Selecione o veículo</div>
-      <div class="cat-list" id="catList"></div>
-    </div>
-
-    <div class="tab-content" id="tab-scenarios">
-      <div id="scenarioList"></div>
-    </div>
-
-    <div class="tab-content" id="tab-characters">
-      <div class="char-section">
-        <div>
-          <div class="sec-label">Quantidade de pessoas</div>
-          <div class="count-row" id="countRow"></div>
-        </div>
-        <div id="ageSection">
-          <div class="sec-label">Faixa etária</div>
-          <div class="age-grid" id="ageGrid"></div>
-        </div>
-        <div id="profileSection">
-          <div class="sec-label">Perfil</div>
-          <div class="opt-row" id="profileRow"></div>
-        </div>
-      </div>
-    </div>
-
-    <div class="tab-content" id="tab-options">
-      <div id="optionsList"></div>
-    </div>
-
-    <div class="tab-content" id="tab-reference">
-      <div class="sec-label">Imagem de Referência</div>
-      <div class="ref-drop" id="refDrop" onclick="document.getElementById('refFileInput').click()">
-        <span class="ref-drop-icon">🖼</span>
-        <div class="ref-drop-label">Cole (Ctrl+V) ou arraste uma imagem<br><small style="opacity:.6">ou clique para selecionar</small></div>
-      </div>
-      <input type="file" id="refFileInput" accept="image/*" style="display:none" onchange="handleRefFile(this.files[0])">
-      <p class="ref-privacy">🔒 A imagem fica só no seu navegador — nada é enviado.</p>
-
-      <div id="refChecks" style="display:none;margin-top:14px;">
-        <div class="ref-section">
-          <div class="sec-label">O que usar como referência</div>
-          <div class="ref-checks">
-            <label class="ref-check-item"><input type="checkbox" id="rc1"><span class="ref-check-label">Horário do dia (golden hour, noite, etc.)</span></label>
-            <label class="ref-check-item"><input type="checkbox" id="rc2"><span class="ref-check-label">Qualidade da luz (dura, suave, difusa)</span></label>
-            <label class="ref-check-item"><input type="checkbox" id="rc3"><span class="ref-check-label">Clima e céu</span></label>
-            <label class="ref-check-item"><input type="checkbox" id="rc4"><span class="ref-check-label">Tom de cor geral (quente/frio/neutro)</span></label>
-            <label class="ref-check-item"><input type="checkbox" id="rc5"><span class="ref-check-label">Ângulo de câmera</span></label>
-            <label class="ref-check-item"><input type="checkbox" id="rc6"><span class="ref-check-label">Profundidade de campo (bokeh)</span></label>
-            <label class="ref-check-item"><input type="checkbox" id="rc7"><span class="ref-check-label">Enquadramento e proporção</span></label>
-            <label class="ref-check-item"><input type="checkbox" id="rc8"><span class="ref-check-label">Tipo de localização / ambiente</span></label>
-            <label class="ref-check-item"><input type="checkbox" id="rc9"><span class="ref-check-label">Elementos de fundo</span></label>
-            <label class="ref-check-item"><input type="checkbox" id="rc10"><span class="ref-check-label">Estilo arquitetônico</span></label>
-            <label class="ref-check-item"><input type="checkbox" id="rc11"><span class="ref-check-label">Estilo de roupa dos personagens</span></label>
-            <label class="ref-check-item"><input type="checkbox" id="rc12"><span class="ref-check-label">Expressão e pose dos personagens</span></label>
-          </div>
-        </div>
-        <div class="ref-ignore-section" style="margin-top:14px;">
-          <div class="ref-ignore-label">O que IGNORAR</div>
-          <div class="ref-checks">
-            <label class="ref-check-item"><input type="checkbox" id="ri1"><span class="ref-check-label">Marca/modelo do carro</span></label>
-            <label class="ref-check-item"><input type="checkbox" id="ri2"><span class="ref-check-label">Identidade das pessoas</span></label>
-            <label class="ref-check-item"><input type="checkbox" id="ri3"><span class="ref-check-label">Texto ou logos visíveis</span></label>
-            <label class="ref-check-item"><input type="checkbox" id="ri4"><span class="ref-check-label">Cores do veículo</span></label>
-          </div>
-        </div>
-      </div>
     </div>
 
     <div class="sel-summary" style="margin-top:auto;">
@@ -357,9 +315,143 @@ header{position:relative;z-index:20;display:flex;align-items:center;justify-cont
     </div>
   </div>
 
-  <!-- RIGHT PANEL -->
+  <!-- RIGHT PANEL = STEP CONTENT + OUTPUT -->
   <div class="panel-right">
-    <div class="output-wrap">
+
+    <!-- STEP CONTENT (wizard pages) -->
+    <div class="step-area">
+      <!-- TAB: REFERÊNCIA (primeiro passo) -->
+      <div class="tab-content active" id="tab-reference">
+        <div class="step-header">
+          <div class="step-title">🖼 Referência Visual</div>
+          <div class="step-sub">Cole uma imagem de referência antes de configurar o prompt (opcional)</div>
+        </div>
+        <div class="ref-drop" id="refDrop" onclick="document.getElementById('refFileInput').click()">
+          <span class="ref-drop-icon">🖼</span>
+          <div class="ref-drop-label">Cole (Ctrl+V) ou arraste uma imagem<br><small style="opacity:.6">ou clique para selecionar</small></div>
+        </div>
+        <input type="file" id="refFileInput" accept="image/*" style="display:none" onchange="handleRefFile(this.files[0])">
+        <p class="ref-privacy">🔒 A imagem fica só no seu navegador — nada é enviado.</p>
+        <div id="refChecks" style="display:none;margin-top:14px;">
+          <div class="ref-section">
+            <div class="sec-label">O que usar como referência</div>
+            <div class="ref-checks ref-check-grid">
+              <label class="ref-check-item"><input type="checkbox" id="rc1"><span class="ref-check-label">Horário do dia</span></label>
+              <label class="ref-check-item"><input type="checkbox" id="rc2"><span class="ref-check-label">Qualidade da luz</span></label>
+              <label class="ref-check-item"><input type="checkbox" id="rc3"><span class="ref-check-label">Clima e céu</span></label>
+              <label class="ref-check-item"><input type="checkbox" id="rc4"><span class="ref-check-label">Tom de cor geral</span></label>
+              <label class="ref-check-item"><input type="checkbox" id="rc5"><span class="ref-check-label">Ângulo de câmera</span></label>
+              <label class="ref-check-item"><input type="checkbox" id="rc6"><span class="ref-check-label">Profundidade de campo</span></label>
+              <label class="ref-check-item"><input type="checkbox" id="rc7"><span class="ref-check-label">Enquadramento</span></label>
+              <label class="ref-check-item"><input type="checkbox" id="rc8"><span class="ref-check-label">Tipo de localização</span></label>
+              <label class="ref-check-item"><input type="checkbox" id="rc9"><span class="ref-check-label">Elementos de fundo</span></label>
+              <label class="ref-check-item"><input type="checkbox" id="rc10"><span class="ref-check-label">Estilo arquitetônico</span></label>
+              <label class="ref-check-item"><input type="checkbox" id="rc11"><span class="ref-check-label">Roupa dos personagens</span></label>
+              <label class="ref-check-item"><input type="checkbox" id="rc12"><span class="ref-check-label">Expressão e pose</span></label>
+            </div>
+          </div>
+          <div class="ref-ignore-section" style="margin-top:14px;">
+            <div class="ref-ignore-label">O que IGNORAR</div>
+            <div class="ref-checks ref-check-grid">
+              <label class="ref-check-item"><input type="checkbox" id="ri1"><span class="ref-check-label">Marca do carro</span></label>
+              <label class="ref-check-item"><input type="checkbox" id="ri2"><span class="ref-check-label">Identidade das pessoas</span></label>
+              <label class="ref-check-item"><input type="checkbox" id="ri3"><span class="ref-check-label">Texto e logos</span></label>
+              <label class="ref-check-item"><input type="checkbox" id="ri4"><span class="ref-check-label">Cores do veículo</span></label>
+            </div>
+          </div>
+        </div>
+        <div style="margin-top:24px;">
+          <button class="btn btn-outline" onclick="switchTab('presets')" style="margin-right:8px;">Pular →</button>
+          <button class="btn btn-primary" onclick="switchTab('presets')">Avançar para Presets →</button>
+        </div>
+      </div>
+
+      <!-- TAB: PRESET RÁPIDO (segundo passo) -->
+      <div class="tab-content" id="tab-presets">
+        <div class="step-header">
+          <div class="step-title">⚡ Preset Rápido</div>
+          <div class="step-sub">Escolha um preset para configurar automaticamente, ou pule para configurar manualmente</div>
+        </div>
+        <div class="preset-grid-center">
+          <div class="preset-card-big" onclick="applyPreset('copa')">
+            <span class="preset-card-icon">🏆</span>
+            <div class="preset-card-name">Copa do Mundo</div>
+            <div class="preset-card-sub">Dramático · Frontal · Hard Rock Stadium</div>
+          </div>
+          <div class="preset-card-big" onclick="applyPreset('verao')">
+            <span class="preset-card-icon">☀️</span>
+            <div class="preset-card-name">Verão 2026</div>
+            <div class="preset-card-sub">Lifestyle · Lateral · Ocean Drive</div>
+          </div>
+          <div class="preset-card-big" onclick="applyPreset('premium')">
+            <span class="preset-card-icon">💎</span>
+            <div class="preset-card-name">Premium</div>
+            <div class="preset-card-sub">Luxo · ¾ traseiro · Brickell Avenue</div>
+          </div>
+          <div class="preset-card-big" onclick="applyPreset('familia')">
+            <span class="preset-card-icon">👨‍👩‍👧</span>
+            <div class="preset-card-name">Família</div>
+            <div class="preset-card-sub">Família · Entrando · Walt Disney World</div>
+          </div>
+        </div>
+        <div style="margin-top:24px;">
+          <button class="btn btn-outline" onclick="switchTab('cars')">Pular — configurar manualmente →</button>
+        </div>
+      </div>
+
+      <!-- TAB: CATEGORIA -->
+      <div class="tab-content" id="tab-cars">
+        <div class="step-header">
+          <div class="step-title">🚗 Selecione a categoria e o veículo</div>
+          <div class="step-sub">Clique numa categoria para ver os modelos — selecionando um modelo avança automaticamente</div>
+        </div>
+        <div class="cat-blocks" id="catList"></div>
+      </div>
+
+      <div class="tab-content" id="tab-scenarios">
+        <div class="step-header">
+          <div class="step-title">📍 Escolha o cenário</div>
+          <div class="step-sub">Local onde o veículo será fotografado</div>
+        </div>
+        <div id="scenarioList"></div>
+      </div>
+
+      <div class="tab-content" id="tab-characters">
+        <div class="step-header">
+          <div class="step-title">👥 Configure os personagens</div>
+          <div class="step-sub">Quantidade e perfil das pessoas no cenário</div>
+        </div>
+        <div class="char-section">
+          <div>
+            <div class="sec-label">Quantidade de pessoas</div>
+            <div class="count-row" id="countRow"></div>
+          </div>
+          <div id="ageSection">
+            <div class="sec-label">Faixa etária</div>
+            <div class="age-grid" id="ageGrid"></div>
+          </div>
+          <div id="profileSection">
+            <div class="sec-label">Perfil</div>
+            <div class="opt-row" id="profileRow"></div>
+          </div>
+        </div>
+        <div style="margin-top:24px;">
+          <button class="btn btn-primary" onclick="switchTab('options')">Avançar para Opções →</button>
+        </div>
+      </div>
+
+      <div class="tab-content" id="tab-options">
+        <div class="step-header">
+          <div class="step-title">⚙️ Opções de criação</div>
+          <div class="step-sub">Formato, tom, ângulo e ação do prompt</div>
+        </div>
+        <div id="optionsList"></div>
+      </div>
+
+
+    </div>
+
+    <div class="output-wrap" id="outputArea" style="display:none;">
       <div class="empty-state" id="emptyState">
         <div class="empty-glyph">◈</div>
         <div class="empty-txt">Configure categoria, cenário<br>e clique em GERAR PROMPT</div>
@@ -591,10 +683,11 @@ const AGE_GROUPS = [
 const PROFILES = ['Família em férias','Casal','Grupo de amigos','Executivo','Turistas'];
 
 const OPTIONS = {
-  formato:{label:'Formato',items:['9:16','4:5','16:9','1:1']},
-  tom:{label:'Tom',items:['Cinematic','Premium/Luxo','Lifestyle','Família','Dramático']},
-  angulo:{label:'Ângulo de câmera',items:['Lateral','Frontal','¾ traseiro','Aéreo','Close interior']},
-  acao:{label:'Ação',items:['Em movimento','Chegando','Saindo do carro','Apoiado no carro','Entrando no carro']},
+  formato:{label:'Formato',items:['9:16','4:5','16:9','1:1','2:3','3:4','21:9']},
+  tom:{label:'Tom',items:['Cinematic','Premium/Luxo','Lifestyle','Família','Dramático','Editorial','Minimalista','Retrô/Vintage']},
+  estilo:{label:'Estilo da Cena',items:['Comercial — posado','Espontâneo — registro real','Documental','Editorial — ensaiado','Candid — natural','Publicidade — impactante']},
+  angulo:{label:'Ângulo de câmera',items:['Lateral','Frontal','¾ traseiro','¾ frontal','Aéreo','Close interior','Rasante — asfalto','Vista de cima']},
+  acao:{label:'Ação',items:['Em movimento','Chegando','Saindo do carro','Apoiado no carro','Entrando no carro','Estacionado','Guinada / curva','Decolagem — aceleração']},
 };
 
 /* ============================================================
@@ -603,38 +696,44 @@ const OPTIONS = {
 let S = {
   catId:null,modelId:null,scenarioId:null,
   charCount:1,ageIds:['adults'],profileId:'Família em férias',
-  formato:'9:16',tom:'Cinematic',angulo:'Lateral',acao:'Em movimento',
+  formato:'9:16',tom:'Cinematic',estilo:'Comercial — posado',angulo:'Lateral',acao:'Em movimento',
 };
 
 /* ============================================================
    RENDER
 ============================================================ */
 function renderCats(){
-  document.getElementById('catList').innerHTML = CATEGORIES.map(c=>`
-    <div class="cat-item" id="cat-${c.id}">
-      <div class="cat-header" onclick="toggleCat('${c.id}')">
-        <span class="cat-icon">${c.icon}</span>
-        <span class="cat-name">${c.name}</span>
-        <span class="cat-arrow">›</span>
-      </div>
-      <div class="cat-models">
+  // Grid of category blocks + expandable model rows
+  let html2='';
+  CATEGORIES.forEach(c=>{
+    const isOpen = S.catId===c.id;
+    html2+=`<div class="cat-block ${isOpen?'open':''}" id="cat-${c.id}" onclick="toggleCat('${c.id}')">
+      <span class="cat-block-icon">${c.icon}</span>
+      <div class="cat-block-name">${c.name}</div>
+    </div>`;
+  });
+  // Add model expansions after grid items (full width)
+  CATEGORIES.forEach(c=>{
+    const isOpen = S.catId===c.id;
+    if(isOpen){
+      html2+=`<div class="cat-block-models show" id="models-${c.id}">
+        <div class="sec-label" style="margin:8px 0 6px;">${c.name} — selecione o modelo</div>
         <div class="model-grid">
           ${c.models.map(m=>`
-            <button class="model-btn ${S.modelId===m.id?'selected':''}" onclick="selectModel('${c.id}','${m.id}')">
+            <button class="model-btn ${S.modelId===m.id?'selected':''}" onclick="selectModel('${c.id}','${m.id}');event.stopPropagation();">
               <span class="model-brand">${m.brand}</span>${m.name}
             </button>
           `).join('')}
         </div>
-      </div>
-    </div>
-  `).join('');
+      </div>`;
+    }
+  });
+  document.getElementById('catList').innerHTML=html2;
 }
 
 function toggleCat(id){
-  const el=document.getElementById('cat-'+id);
-  const wasOpen=el.classList.contains('open');
-  document.querySelectorAll('.cat-item.open').forEach(e=>e.classList.remove('open'));
-  if(!wasOpen) el.classList.add('open');
+  S.catId = S.catId===id ? null : id;
+  renderCats();
 }
 
 function selectModel(catId,modelId){
@@ -727,6 +826,13 @@ function switchTab(name){
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('tab-'+name).classList.add('active');
   document.getElementById('tb-'+name).classList.add('active');
+  // Show step area when navigating (unless output is showing)
+  const outputArea = document.getElementById('outputArea');
+  const stepArea = document.querySelector('.step-area');
+  if(outputArea && outputArea.style.display!=='none'){
+    outputArea.style.display='none';
+    if(stepArea) stepArea.style.display='block';
+  }
 }
 
 /* ============================================================
@@ -837,6 +943,8 @@ function buildPrompt(){
 
   const toneMap={'Cinematic':'dramatic cinematic commercial photography, deep contrast, moody layered atmosphere','Premium/Luxo':'refined luxury editorial photography, clean elegant composition, premium brand aesthetic','Lifestyle':'vibrant lifestyle photography, energetic aspirational mood, warm inviting tones','Família':'warm joyful family lifestyle photography, bright welcoming atmosphere, genuine candid emotion','Dramático':'bold high-contrast dramatic photography, cinematic tension, powerful visual storytelling'};
   const toneDesc=toneMap[S.tom]||toneMap['Cinematic'];
+  const estiloMap={'Comercial — posado':'carefully staged commercial scene, directed poses and composition','Espontâneo — registro real':'authentic candid documentary style, spontaneous unposed moments','Documental':'real-life documentary photography, observational and genuine','Editorial — ensaiado':'high-end fashion editorial photography, intentional and choreographed','Candid — natural':'natural candid photography, unscripted authentic interaction','Publicidade — impactante':'bold advertising photography, high-impact visual statement'};
+  const estiloDesc=estiloMap[S.estilo]||estiloMap['Comercial — posado'];
 
   const angleMap={'Lateral':'low diagonal tracking angle at near-asphalt level, car shot from driver-side rear quarter, dynamic panning with motion blur on background','Frontal':'dramatic low front angle camera nearly at ground level, vehicle coming head-on with forced perspective','¾ traseiro':'classic three-quarter rear angle, low slightly elevated, dynamic stance reveal showing full rear body','Aéreo':'elevated aerial three-quarter view looking down, wide environment context visible around the vehicle','Close interior':'interior cabin shot through open window or door, dashboard and seating detail with exterior environment visible'};
   const angleDesc=angleMap[S.angulo]||angleMap['Lateral'];
@@ -862,7 +970,7 @@ function buildPrompt(){
   const fluxBase=' — perfect wheel geometry, undistorted body panels, photographic accuracy';
   const fluxSkin=S.charCount>0?' — subsurface scattering on skin, pore-level skin texture, photojournalism realism':'';
 
-  return `${toneDesc.charAt(0).toUpperCase()+toneDesc.slice(1)}, ${angleDesc}, ${lens} — ${charBlock} ${car.key} — ${actionDesc} along ${sc.key} — natural ${sc.time.toLowerCase()} light raking across the vehicle body, creating sharp specular highlights on chrome details and deep reflections across the paint surface — crisp background bokeh preserving environmental context without distraction — hyper-realistic commercial photography, natural skin texture, crisp metallic paint detail${fluxBase}${fluxSkin}${refBlock}.`;
+  return `${toneDesc.charAt(0).toUpperCase()+toneDesc.slice(1)}, ${estiloDesc}, ${angleDesc}, ${lens} — ${charBlock} ${car.key} — ${actionDesc} along ${sc.key} — natural ${sc.time.toLowerCase()} light raking across the vehicle body, creating sharp specular highlights on chrome details and deep reflections across the paint surface — crisp background bokeh preserving environmental context without distraction — hyper-realistic commercial photography, natural skin texture, crisp metallic paint detail${fluxBase}${fluxSkin}${refBlock}.`;
 }
 
 function buildNeg(){
@@ -878,6 +986,9 @@ function generate(){
   const car=findModel(S.modelId);const sc=findScenario(S.scenarioId);const age=AGE_GROUPS.find(a=>a.id===S.ageId);const cat=findCatByModel(S.modelId);
 
   document.getElementById('emptyState').style.display='none';
+  document.querySelector('.step-area').style.display='none';
+  document.getElementById('outputArea').style.display='flex';
+  document.getElementById('outputArea').style.flexDirection='column';
   const card=document.getElementById('outputCard');
   card.classList.remove('show');void card.offsetWidth;card.classList.add('show');
 
@@ -917,11 +1028,13 @@ function toggleJson(){
 }
 
 function resetAll(){
-  S={catId:null,modelId:null,scenarioId:null,charCount:1,ageIds:['adults'],profileId:'Família em férias',formato:'9:16',tom:'Cinematic',angulo:'Lateral',acao:'Em movimento'};
+  S={catId:null,modelId:null,scenarioId:null,charCount:1,ageIds:['adults'],profileId:'Família em férias',formato:'9:16',tom:'Cinematic',estilo:'Comercial — posado',angulo:'Lateral',acao:'Em movimento'};
   renderCats();renderScenarios();renderCharacters();renderOptions();
   updateSummary();updateGenBtn();
   document.getElementById('emptyState').style.display='flex';
   document.getElementById('outputCard').classList.remove('show');
+  document.querySelector('.step-area').style.display='block';
+  document.getElementById('outputArea').style.display='none';
   clearRef();
   switchTab('cars');
 }
@@ -938,8 +1051,9 @@ function applyPreset(name){
   };
   const p=presets[name];if(!p)return;
   Object.assign(S,p);
-  renderScenarios();renderCharacters();renderOptions();updateSummary();updateGenBtn();
-  if(S.modelId) generate(); else{alert('Selecione um carro primeiro para usar o preset.');switchTab('cars');}
+  renderCats();renderScenarios();renderCharacters();renderOptions();updateSummary();updateGenBtn();
+  // Presets go to cars to confirm vehicle (or generate if model set)
+  if(S.modelId){switchTab('cars');}else{switchTab('cars');}
 }
 
 /* ============================================================
