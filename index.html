@@ -225,6 +225,7 @@ header{position:relative;z-index:20;display:flex;align-items:center;justify-cont
 .sel-row{display:flex;gap:6px;flex-wrap:wrap;}
 .sel-pill{font-size:10px;font-family:var(--font-mono);padding:3px 8px;border-radius:4px;background:var(--bg3);color:var(--muted);max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .sel-pill.filled{color:var(--white);}
+.sidebar-watermark{padding:10px 20px 8px;font-size:10px;font-family:var(--font-mono);color:rgba(255,255,255,0.55);letter-spacing:.1em;text-align:center;}
 
 /* HISTORY OVERLAY */
 .hist-overlay{position:fixed;top:0;right:-380px;width:360px;height:100vh;background:#111111;border-left:1px solid var(--border);z-index:100;display:flex;flex-direction:column;transition:right .3s ease;box-shadow:-4px 0 24px rgba(0,0,0,0.4);}
@@ -249,6 +250,26 @@ header{position:relative;z-index:20;display:flex;align-items:center;justify-cont
 /* OVERLAY BACKDROP */
 .hist-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99;display:none;}
 .hist-backdrop.open{display:block;}
+
+/* FEEDBACK MODAL */
+.feedback-overlay{position:fixed;inset:0;background:rgba(0,0,0,.65);z-index:150;display:none;align-items:center;justify-content:center;backdrop-filter:blur(4px);}
+.feedback-overlay.open{display:flex;}
+.feedback-modal{background:#1a1a1a;border:1px solid rgba(255,255,255,0.1);border-radius:18px;padding:32px;width:440px;max-width:90vw;box-shadow:0 16px 60px rgba(0,0,0,0.7);animation:slideUp .3s ease;}
+.feedback-title{font-family:var(--font-display);font-size:26px;letter-spacing:.05em;color:var(--white);margin-bottom:6px;}
+.feedback-sub{font-size:13px;color:var(--muted);margin-bottom:24px;}
+.feedback-field{margin-bottom:16px;}
+.feedback-field label{display:block;font-size:11px;font-family:var(--font-mono);color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:6px;}
+.feedback-field input,.feedback-field textarea{width:100%;background:#242424;border:1px solid rgba(255,255,255,0.1);border-radius:10px;color:var(--white);font-size:13px;font-family:var(--font-body);padding:11px 14px;outline:none;transition:border .2s;resize:none;}
+.feedback-field input:focus,.feedback-field textarea:focus{border-color:var(--accent);}
+.feedback-field textarea{height:100px;}
+.feedback-actions{display:flex;gap:8px;justify-content:flex-end;margin-top:8px;}
+.feedback-success{text-align:center;padding:20px 0;}
+.feedback-success-icon{font-size:40px;margin-bottom:12px;}
+.feedback-success-msg{font-size:15px;color:var(--white);margin-bottom:4px;font-weight:500;}
+.feedback-success-sub{font-size:12px;color:var(--muted);}
+/* COPY TOAST */
+.copy-toast{position:fixed;bottom:32px;right:32px;background:linear-gradient(135deg,#e03030,#c90000);color:#fff;padding:12px 20px;border-radius:10px;font-size:13px;font-family:var(--font-body);font-weight:500;display:flex;align-items:center;gap:8px;z-index:200;transform:translateY(20px);opacity:0;pointer-events:none;transition:all .3s ease;box-shadow:0 6px 24px rgba(201,0,0,0.45);}
+.copy-toast.show{transform:translateY(0);opacity:1;}
 
 @media(max-width:768px){
   .app{grid-template-columns:1fr;}
@@ -315,13 +336,20 @@ header{position:relative;z-index:20;display:flex;align-items:center;justify-cont
       <button class="tab-btn" id="tb-options" onclick="switchTab('options')">
         <span class="nav-icon">⚙️</span> Opções
       </button>
+      <div class="nav-section-label" style="margin-top:8px;">Comunidade</div>
+      <button class="tab-btn" id="tb-feedback" onclick="openFeedback()">
+        <span class="nav-icon">💬</span> Feedback
+      </button>
     </div>
 
-    <div class="sel-summary" style="margin-top:auto;">
-      <div class="sel-row" id="selSummary">
-        <span class="sel-pill" id="sp-car">— categoria</span>
-        <span class="sel-pill" id="sp-sc">— cenário</span>
-        <span class="sel-pill" id="sp-ppl">— pessoas</span>
+    <div style="margin-top:auto;">
+      <div class="sidebar-watermark">Developed by Jorge Celesi for FRC</div>
+      <div class="sel-summary">
+        <div class="sel-row" id="selSummary">
+          <span class="sel-pill" id="sp-car">— categoria</span>
+          <span class="sel-pill" id="sp-sc">— cenário</span>
+          <span class="sel-pill" id="sp-ppl">— pessoas</span>
+        </div>
       </div>
     </div>
   </div>
@@ -480,7 +508,7 @@ header{position:relative;z-index:20;display:flex;align-items:center;justify-cont
             <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
             Copiar prompt
           </button>
-          <button class="btn btn-outline" onclick="generate()">
+          <button class="btn btn-outline" onclick="generateVariation()">
             <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="23 4 23 10 17 10"/><path d="M20.49 15a9 9 0 11-2.12-9.36L23 10"/></svg>
             Nova variação
           </button>
@@ -496,6 +524,13 @@ header{position:relative;z-index:20;display:flex;align-items:center;justify-cont
             Configuração JSON
           </button>
           <div class="json-pre" id="jsonPre"><pre id="jsonText"></pre></div>
+        </div>
+        <div id="faceLockSection" style="display:none;">
+          <button class="json-toggle" id="faceLockToggle" onclick="toggleFaceLock()">
+            <svg class="json-arrow" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
+            🔒 Face Lock JSON — Nano Banana
+          </button>
+          <div class="json-pre" id="faceLockPre"><pre id="faceLockText"></pre></div>
         </div>
       </div>
     </div>
@@ -987,50 +1022,109 @@ document.getElementById('refDrop').addEventListener('drop',e=>{
 /* ============================================================
    PROMPT GENERATION
 ============================================================ */
-function buildPrompt(){
-  const car=findModel(S.modelId);
-  const sc=findScenario(S.scenarioId);
-  const age=AGE_GROUPS.find(a=>a.id===(S.ageIds[0]||'adults'));
+// Lighting by time of day — Nano Banana Expert 2.0 guide
+const LIGHTING_BY_TIME = {
+  'pôr do sol':'warm golden hour light from low on the horizon, long directional shadows, rich orange and amber tones raking across surfaces, soft backlit rim glow on edges',
+  'manhã':'soft diffused morning light from low angle, cool-warm transition tones, gentle side lighting, fresh clear atmosphere with subtle shadows',
+  'manhã ensolarada':'bright warm morning sunlight from low angle, crisp directional shadows, vibrant saturated tones, clear blue sky overhead',
+  'manhã — orla':'soft golden coastal morning light, ocean reflections creating secondary fill, fresh clarity, cool blue-warm amber contrast',
+  'manhã — litoral':'bright coastal morning light, Atlantic Ocean reflecting brilliant specular highlights, warm tropical glow, clear sky above',
+  'manhã — waterfront':'diffused waterfront morning light, bay reflections as subtle fill, blue-gold gradient sky, fresh clean atmosphere',
+  'tarde':'warm afternoon sunlight from mid-high angle, strong directional shadows, rich saturated Florida tones, vibrant blue sky',
+  'noite — neon':'vivid artificial neon lighting, wet asphalt reflections in pools of color, cool blue ambient fill light, electric urban atmosphere',
+  'dia':'bright Florida midday sunshine, high overhead directional light, crisp shadows, vivid saturated colors, clear deep blue sky',
+  'dia — urbano':'bright urban daylight, glass facade reflections as secondary fill, polished surface specular highlights, clean metropolitan atmosphere',
+  'dia — moderno':'clean bright modern daylight, architectural glass reflections, even professional lighting, sharp crisp shadows',
+};
+function getLightingDesc(timeStr){
+  if(!timeStr) return 'natural directional light, soft cinematic shadows, warm atmospheric depth';
+  const t=timeStr.toLowerCase();
+  for(const [key,desc] of Object.entries(LIGHTING_BY_TIME)){
+    if(t===key||t.startsWith(key.split(' ')[0])||t.includes(key.split(' ')[0]))return desc;
+  }
+  if(t.includes('noite')||t.includes('neon'))return LIGHTING_BY_TIME['noite — neon'];
+  if(t.includes('pôr')||t.includes('sunset')||t.includes('sol'))return LIGHTING_BY_TIME['pôr do sol'];
+  if(t.includes('manhã')||t.includes('morning'))return LIGHTING_BY_TIME['manhã'];
+  if(t.includes('tarde')||t.includes('afternoon'))return LIGHTING_BY_TIME['tarde'];
+  return 'natural cinematic light with atmospheric depth and directional shadows';
+}
 
-  const lensMap={'9:16':'Sony A7R V with 35mm f/1.8 lens','4:5':'Canon EOS R5 with 50mm f/1.4 lens','16:9':'Canon EOS R5 with 24mm f/2.8 lens','1:1':'Sony A7R V with 85mm f/1.4 lens'};
+function buildPrompt(){
+  const car=S.modelId?findModel(S.modelId):null;
+  const sc=findScenario(S.scenarioId);
+  if(!sc) return '';
+
+  const lensMap={'9:16':'Sony A7R V with 35mm f/1.8 lens, shallow depth of field','4:5':'Canon EOS R5 with 50mm f/1.4 lens, cinematic depth of field','16:9':'Canon EOS R5 with 24mm f/2.8 lens, wide cinematic framing','1:1':'Sony A7R V with 85mm f/1.4 lens, subject isolation','2:3':'Sony A7R V with 50mm f/1.2 lens, portrait-style bokeh','3:4':'Canon EOS R5 with 35mm f/1.4 lens, natural perspective','21:9':'Canon EOS R5 with 24mm f/2.8 anamorphic lens, ultra-wide cinematic'};
   const lens=lensMap[S.formato]||lensMap['9:16'];
 
-  const toneMap={'Cinematic':'dramatic cinematic commercial photography, deep contrast, moody layered atmosphere','Premium/Luxo':'refined luxury editorial photography, clean elegant composition, premium brand aesthetic','Lifestyle':'vibrant lifestyle photography, energetic aspirational mood, warm inviting tones','Família':'warm joyful family lifestyle photography, bright welcoming atmosphere, genuine candid emotion','Dramático':'bold high-contrast dramatic photography, cinematic tension, powerful visual storytelling'};
+  const toneMap={'Cinematic':'dramatic cinematic commercial photography, deep contrast, moody layered atmosphere','Premium/Luxo':'refined luxury editorial photography, clean elegant composition, premium brand aesthetic','Lifestyle':'vibrant lifestyle photography, energetic aspirational mood, warm inviting tones','Família':'warm joyful family lifestyle photography, bright welcoming atmosphere, genuine candid emotion','Dramático':'bold high-contrast dramatic photography, cinematic tension, powerful visual storytelling','Editorial':'polished fashion editorial photography, intentional choreographed composition','Minimalista':'clean minimalist photography, negative space, crisp lines, quiet atmosphere','Retrô/Vintage':'warm vintage film photography, grain texture, nostalgic color palette'};
   const toneDesc=toneMap[S.tom]||toneMap['Cinematic'];
+
   const estiloMap={'Comercial — posado':'carefully staged commercial scene, directed poses and composition','Espontâneo — registro real':'authentic candid documentary style, spontaneous unposed moments','Documental':'real-life documentary photography, observational and genuine','Editorial — ensaiado':'high-end fashion editorial photography, intentional and choreographed','Candid — natural':'natural candid photography, unscripted authentic interaction','Publicidade — impactante':'bold advertising photography, high-impact visual statement'};
   const estiloDesc=estiloMap[S.estilo]||estiloMap['Comercial — posado'];
 
-  const angleMap={'Lateral':'low diagonal tracking angle at near-asphalt level, car shot from driver-side rear quarter, dynamic panning with motion blur on background','Frontal':'dramatic low front angle camera nearly at ground level, vehicle coming head-on with forced perspective','¾ traseiro':'classic three-quarter rear angle, low slightly elevated, dynamic stance reveal showing full rear body','Aéreo':'elevated aerial three-quarter view looking down, wide environment context visible around the vehicle','Close interior':'interior cabin shot through open window or door, dashboard and seating detail with exterior environment visible'};
+  const angleMap={'Lateral':'low diagonal tracking angle at near-asphalt level, rear-quarter perspective, dynamic panning composition','Frontal':'dramatic low front angle nearly at ground level, forced perspective, head-on composition','¾ traseiro':'classic three-quarter rear angle, slightly elevated, dynamic full-body stance reveal','¾ frontal':'three-quarter front angle, slightly low, revealing grille and body profile','Aéreo':"elevated aerial three-quarter view, wide environmental context, bird's-eye composition",'Close interior':'interior cabin framing through open window, dashboard detail, exterior environment visible','Rasante — asfalto':'extreme near-asphalt angle, dramatic perspective distortion, ultra-low cinematic framing','Vista de cima':'top-down overhead composition, full subject and environment visible'};
   const angleDesc=angleMap[S.angulo]||angleMap['Lateral'];
 
-  const actionMap={'Em movimento':'moving at speed along the road, dynamic motion blur on background, wheels sharp','Chegando':'arriving and slowing down, brake lights glowing subtly, purposeful controlled deceleration','Saindo do carro':'characters stepping out of the vehicle, doors open, emerging into the scene','Apoiado no carro':'characters relaxed leaning against the vehicle, casual confident poses, parked in the scene','Entrando no carro':'characters boarding the vehicle, doors open, excited energy of departure'};
+  const actionMap={'Em movimento':'moving at speed along the road, dynamic motion blur on background, crisp sharp focus on vehicle','Chegando':'arriving and decelerating, brake lights glowing subtly, purposeful controlled approach','Saindo do carro':'occupants stepping out, doors open wide, dynamic emergence into scene','Apoiado no carro':'relaxed confident leaning against vehicle, natural casual poses, parked composition','Entrando no carro':'boarding the vehicle, doors open, energetic departure energy','Estacionado':'elegantly parked in environment, static composed architectural shot','Guinada / curva':'dynamic cornering moment, subtle body lean, controlled precision handling','Decolagem — aceleração':'launching from standstill, rear grip on asphalt, forward momentum energy'};
   const actionDesc=actionMap[S.acao]||actionMap['Em movimento'];
+
+  const lightingDesc=getLightingDesc(sc.time);
 
   let charBlock='';
   if(S.charCount>0){
     const charCountDesc=S.charCount===1?'one person':S.charCount===2?'two people':S.charCount<=4?['three','four'][S.charCount-3]+' people':`a group of ${S.charCount} people`;
-    const profileMap={'Família em férias':'on a Florida family vacation, wearing comfortable casual summer clothes, bright and joyful expressions','Casal':'romantic couple on a Florida getaway, stylish casual outfits, happy and relaxed','Grupo de amigos':'group of friends on a Florida trip, wearing casual summer attire, laughing and energetic','Executivo':'business professional in smart casual or executive attire, confident composed expression','Turistas':'tourists excited about their Florida adventure, comfortable travel outfits, cameras and sunglasses'};
+    const profileMap={
+      'Família em férias':'on a Florida vacation, comfortable casual summer clothes, genuine joyful family expressions, warm relaxed body language',
+      'Casal':'as a couple on a Florida getaway, stylish casual outfits, natural romantic chemistry, relaxed confident energy',
+      'Grupo de amigos':'friends on a Florida trip, casual summer attire, organic laughing interaction, energetic authentic group dynamic',
+      'Executivo':'as a business professional, smart casual or executive attire, composed confident expression, polished presence',
+      'Turistas':'as tourists experiencing Florida, comfortable travel outfits, candid expressions of excitement and wonder'
+    };
     const profileDesc=profileMap[S.profileId]||profileMap['Família em férias'];
     const selectedAges=AGE_GROUPS.filter(a=>S.ageIds.includes(a.id));
-    const ageDesc=selectedAges.length===1?selectedAges[0].key:selectedAges.map(a=>a.key).join(' and ');
-    charBlock=`${charCountDesc} — ${ageDesc}, ${profileDesc}, natural warm Brazilian features with rich brown skin tones, dark expressive eyes, genuine authentic expressions —`;
+    // Pick specific ages within range per Nano Banana guide
+    function getSpecificAge(ageId){
+      const ranges={kids:[3,4,5,6,7,8],teens:[11,12,13,14,15],adults:[24,27,29,32,35,38,41]};
+      const r=ranges[ageId]||ranges.adults;
+      const age=r[Math.floor(Math.random()*r.length)];
+      if(ageId==='kids') return `a ${age}-year-old Brazilian child, happy playful energy, casual colorful clothing`;
+      if(ageId==='teens') return `a ${age}-year-old Brazilian teenager, casual modern streetwear, energetic relaxed attitude`;
+      return `a ${age}-year-old Brazilian adult, warm Latin features, natural tan skin tones, dark expressive eyes, dark hair`;
+    }
+    const ageDesc=selectedAges.length===1?getSpecificAge(selectedAges[0].id):selectedAges.map(a=>getSpecificAge(a.id)).join(' alongside ');
+    charBlock=`${charCountDesc} — ${ageDesc}, ${profileDesc} — warm Brazilian complexion with rich brown skin tones, warm golden undertone, pore-level skin texture with natural subsurface scattering, dark expressive almond eyes, naturally defined dark brows, authentic unposed expressions, natural dark hair —`;
   }
 
-  // Reference block
   const refUsed=getRefUsed();
-  const refBlock=refUsed.length>0?` — [visual reference: ${refUsed.join(', ')}]`:'';
+  const refBlock=refUsed.length>0?` — [visual reference applied: ${refUsed.join(', ')}]`:'';
+  const fluxCinema=' — shallow depth of field, cinematic realism, natural textures, atmospheric perspective';
+  const fluxVehicle=' — perfect wheel geometry, undistorted panel lines, photographic metallic paint accuracy';
 
-  // Flux quality additions
-  const fluxBase=' — perfect wheel geometry, undistorted body panels, photographic accuracy';
-  const fluxSkin=S.charCount>0?' — subsurface scattering on skin, pore-level skin texture, photojournalism realism':'';
-
-  // Jarvis mode — people only, no car
-  if(APP_MODE === 'jarvis'){
-    const charBlockJarvis = S.charCount===0 ? 'empty scene, no people' : charBlock.replace(' —','');
-    return `${toneDesc.charAt(0).toUpperCase()+toneDesc.slice(1)}, ${estiloDesc}, ${angleDesc}, ${lens} — ${charBlockJarvis} — ${actionDesc.replace('along the road','in the scene').replace('at speed along the road','moving through the scene')} at ${sc.key} — natural ${sc.time.toLowerCase()} light, creating warm ambient illumination — crisp background with rich environmental context — hyper-realistic lifestyle photography, natural skin texture, authentic emotion${fluxSkin}${refBlock}.`;
+  if(APP_MODE==='jarvis'){
+    if(S.charCount===0) return `Create a hyper-realistic cinematic photograph of an empty scene — ${sc.key} — ${lightingDesc} — ${angleDesc}, ${lens} — ${toneDesc} — ${estiloDesc}${fluxCinema}${refBlock}.`;
+    return `Create a hyper-realistic cinematic photograph of ${charBlock} ${actionDesc.replace('along the road','through the scene').replace('at speed along the road','moving naturally')} at ${sc.key} — ${lightingDesc} — ${angleDesc}, ${lens} — ${toneDesc} — ${estiloDesc}${fluxCinema}${refBlock}.`;
   }
 
-  return `${toneDesc.charAt(0).toUpperCase()+toneDesc.slice(1)}, ${estiloDesc}, ${angleDesc}, ${lens} — ${charBlock} ${car.key} — ${actionDesc} along ${sc.key} — natural ${sc.time.toLowerCase()} light raking across the vehicle body, creating sharp specular highlights on chrome details and deep reflections across the paint surface — crisp background bokeh preserving environmental context without distraction — hyper-realistic commercial photography, natural skin texture, crisp metallic paint detail${fluxBase}${fluxSkin}${refBlock}.`;
+  return `Create a hyper-realistic cinematic commercial photograph of ${charBlock} ${car?car.key:'the scene'} — ${actionDesc} along ${sc.key} — ${lightingDesc} — ${angleDesc}, ${lens} — ${toneDesc} — ${estiloDesc}${fluxVehicle}${fluxCinema}${refBlock}.`;
+}
+
+function buildFaceLockJSON(){
+  if(S.charCount===0) return null;
+  const selectedAges=AGE_GROUPS.filter(a=>S.ageIds.includes(a.id));
+  return JSON.stringify({
+    face_shape:'oval to rounded, warm Latin proportions',
+    jawline:'naturally soft, warm Latin features',
+    chin:'gently defined, natural proportion',
+    eyes:{shape:'almond-shaped',color:'dark brown',size:'expressive, medium-large',lashes:'naturally thick'},
+    eyebrows:{shape:'naturally arched',thickness:'full natural'},
+    nose:{bridge:'gentle medium width',tip:'softly rounded'},
+    lips:{shape:'full natural curve',volume:'moderate to full',texture:'soft with natural sheen'},
+    skin:{tone:'warm brown, rich Brazilian complexion',undertone:'golden warm',texture:'smooth with natural pore detail, subsurface scattering'},
+    hair:{color:'dark brown to black',style:'natural casual',texture:'natural wave or straight'},
+    age_range:selectedAges.map(a=>a.range).join(' + '),
+    notes:'Brazilian features — warm skin tones, dark expressive eyes, natural authentic expressions'
+  },null,2);
 }
 
 function buildNeg(){
@@ -1042,8 +1136,10 @@ function buildNeg(){
 }
 
 function generate(){
-  if(!S.modelId||!S.scenarioId)return;
-  const car=findModel(S.modelId);const sc=findScenario(S.scenarioId);const age=AGE_GROUPS.find(a=>a.id===S.ageId);const cat=findCatByModel(S.modelId);
+  const isJarvis=APP_MODE==='jarvis';
+  if(!isJarvis&&!S.modelId) return;
+  if(!S.scenarioId) return;
+  const car=S.modelId?findModel(S.modelId):null;const sc=findScenario(S.scenarioId);const age=AGE_GROUPS.find(a=>a.id===(S.ageIds?S.ageIds[0]:'adults'));const cat=S.modelId?findCatByModel(S.modelId):null;
 
   document.getElementById('emptyState').style.display='none';
   document.querySelector('.step-area').style.display='none';
@@ -1066,7 +1162,16 @@ function generate(){
     <span class="tag">${S.angulo}</span>
   `;
 
-  const jsonData={gerado_em:new Date().toLocaleDateString('pt-BR'),categoria:cat.name,modelo:car.name,cenario:sc.name,cidade:Object.entries(SCENARIOS).find(([,scs])=>scs.some(s=>s.id===S.scenarioId))?.[0]||'',personagens:{quantidade:S.charCount,faixas_etarias:S.charCount>0?S.ageIds.join('+'):'n/a',perfil:S.charCount>0?S.profileId:'n/a'},opcoes:{formato:S.formato,tom:S.tom,angulo:S.angulo,acao:S.acao}};
+  const jsonData={gerado_em:new Date().toLocaleDateString('pt-BR'),modo:APP_MODE,categoria:cat?cat.name:'jarvis',modelo:car?car.name:'n/a',cenario:sc.name,cidade:Object.entries(SCENARIOS).find(([,scs])=>scs.some(s=>s.id===S.scenarioId))?.[0]||'',personagens:{quantidade:S.charCount,faixas_etarias:S.charCount>0?S.ageIds.join('+'):'n/a',perfil:S.charCount>0?S.profileId:'n/a'},opcoes:{formato:S.formato,tom:S.tom,estilo:S.estilo,angulo:S.angulo,acao:S.acao}};
+
+  // Face Lock JSON for Jarvis mode
+  const flSection=document.getElementById('faceLockSection');
+  if(APP_MODE==='jarvis'&&S.charCount>0){
+    flSection.style.display='block';
+    document.getElementById('faceLockText').textContent=buildFaceLockJSON();
+    document.getElementById('faceLockPre').classList.remove('show');
+    document.getElementById('faceLockToggle').classList.remove('open');
+  } else if(flSection){flSection.style.display='none';}
   document.getElementById('jsonText').textContent=JSON.stringify(jsonData,null,2);
   document.getElementById('jsonPre').classList.remove('show');
   document.getElementById('jsonToggle').classList.remove('open');
@@ -1077,6 +1182,11 @@ function generate(){
 
 function copyPrompt(){
   navigator.clipboard.writeText(document.getElementById('promptText').textContent).then(()=>{
+    // Show toast
+    const toast=document.getElementById('copyToast');
+    toast.classList.add('show');
+    setTimeout(()=>toast.classList.remove('show'),2500);
+    // Update button
     const btn=event.currentTarget;const orig=btn.innerHTML;
     btn.innerHTML='<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Copiado!';
     setTimeout(()=>btn.innerHTML=orig,2000);
@@ -1086,6 +1196,26 @@ function copyPrompt(){
 function toggleJson(){
   document.getElementById('jsonPre').classList.toggle('show');
   document.getElementById('jsonToggle').classList.toggle('open');
+}
+function toggleFaceLock(){
+  document.getElementById('faceLockPre').classList.toggle('show');
+  document.getElementById('faceLockToggle').classList.toggle('open');
+}
+function generateVariation(){
+  // Rebuild prompt in place without resetting display states
+  const isJarvis=APP_MODE==='jarvis';
+  if(!isJarvis&&!S.modelId) return;
+  if(!S.scenarioId) return;
+  const newPrompt=buildPrompt();
+  const el=document.getElementById('promptText');
+  el.style.opacity='0';
+  el.style.transition='opacity .25s';
+  setTimeout(()=>{ el.textContent=newPrompt; el.style.opacity='1'; },250);
+  // Update history
+  const car=S.modelId?findModel(S.modelId):null;
+  const sc=findScenario(S.scenarioId);
+  if(car&&sc) saveToHistory({model:car.name,scenario:sc.name,prompt:newPrompt});
+  else if(sc) saveToHistory({model:'Jarvis',scenario:sc.name,prompt:newPrompt});
 }
 
 function resetAll(){
@@ -1181,8 +1311,77 @@ function toggleHistory(){
   renderHistory();
 }
 
+function openFeedback(){
+  document.getElementById('feedbackForm').style.display='block';
+  document.getElementById('feedbackSuccess').style.display='none';
+  document.getElementById('fbName').value='';
+  document.getElementById('fbRole').value='';
+  document.getElementById('fbMsg').value='';
+  document.getElementById('feedbackOverlay').classList.add('open');
+}
+function closeFeedback(e){
+  if(e&&e.target!==document.getElementById('feedbackOverlay'))return;
+  document.getElementById('feedbackOverlay').classList.remove('open');
+}
+function submitFeedback(){
+  const name=document.getElementById('fbName').value.trim();
+  const role=document.getElementById('fbRole').value.trim();
+  const msg=document.getElementById('fbMsg').value.trim();
+  if(!name||!msg){alert('Preencha nome e mensagem.');return;}
+  const fb={date:new Date().toLocaleString('pt-BR'),name,role,msg};
+  let list=[];
+  try{list=JSON.parse(localStorage.getItem('georgia_feedback')||'[]');}catch(e){}
+  list.unshift(fb);
+  localStorage.setItem('georgia_feedback',JSON.stringify(list));
+  document.getElementById('feedbackForm').style.display='none';
+  document.getElementById('feedbackSuccess').style.display='block';
+  setTimeout(()=>{
+    document.getElementById('feedbackOverlay').classList.remove('open');
+  },2500);
+}
+
 /* INIT */
 renderCats();renderScenarios();renderCharacters();renderOptions();updateSummary();updateGenBtn();
 </script>
+<!-- COPY TOAST -->
+<div id="copyToast" class="copy-toast">
+  <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+  Prompt copiado com sucesso!
+</div>
+
+<!-- FEEDBACK MODAL -->
+<div class="feedback-overlay" id="feedbackOverlay" onclick="closeFeedback(event)">
+  <div class="feedback-modal" onclick="event.stopPropagation()">
+    <div id="feedbackForm">
+      <div class="feedback-title">💬 Feedback</div>
+      <div class="feedback-sub">Sugestões, elogios ou ajustes — tudo é bem-vindo.</div>
+      <div class="feedback-field">
+        <label>Nome</label>
+        <input type="text" id="fbName" placeholder="Seu nome">
+      </div>
+      <div class="feedback-field">
+        <label>Função</label>
+        <input type="text" id="fbRole" placeholder="Ex: Designer, Social Media, Fotógrafo...">
+      </div>
+      <div class="feedback-field">
+        <label>Mensagem</label>
+        <textarea id="fbMsg" placeholder="Sua sugestão, comentário ou feedback..."></textarea>
+      </div>
+      <div class="feedback-actions">
+        <button class="btn btn-ghost" onclick="closeFeedback()">Cancelar</button>
+        <button class="btn btn-primary" onclick="submitFeedback()">Enviar feedback</button>
+      </div>
+    </div>
+    <div id="feedbackSuccess" class="feedback-success" style="display:none;">
+      <div class="feedback-success-icon">✅</div>
+      <div class="feedback-success-msg">Obrigado pelo feedback!</div>
+      <div class="feedback-success-sub">Sua mensagem foi registrada com sucesso.</div>
+      <div style="margin-top:20px;">
+        <button class="btn btn-outline" onclick="closeFeedback()">Fechar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
 </body>
 </html>
