@@ -7,50 +7,51 @@
 <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root {
-  --black:#0d1117; --bg:#0d1117; --bg2:#161b22; --bg3:#1c2128;
-  --white:#f5f0e8; --cream:#ede8dc;
-  --accent:#e02020; --accent2:#c01818; --accent3:#2a9de8;
-  --muted:#777; --muted2:#555;
-  --border:rgba(245,240,232,0.08); --border2:rgba(245,240,232,0.15);
+  --bg:#212130; --bg2:#1a1a27; --bg3:#272738;
+  --white:#f4f4f4; --cream:#ede8dc;
+  --accent:#c90000; --accent2:#7d1202; --accent3:#2a9de8;
+  --muted:#888; --muted2:#555;
+  --border:rgba(244,244,244,0.07); --border2:rgba(244,244,244,0.15);
   --font-display:'Bebas Neue',sans-serif;
   --font-body:'DM Sans',sans-serif;
   --font-mono:'DM Mono',monospace;
 }
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
 html{scroll-behavior:smooth;}
-body{background:var(--black);color:var(--white);font-family:var(--font-body);min-height:100vh;overflow-x:hidden;}
-body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(130,160,220,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(130,160,220,0.04) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;}
+body{background:var(--bg);color:var(--white);font-family:var(--font-body);min-height:100vh;overflow-x:hidden;}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(130,160,220,0.03) 1px,transparent 1px),linear-gradient(90deg,rgba(130,160,220,0.03) 1px,transparent 1px);background-size:48px 48px;pointer-events:none;z-index:0;}
 
 /* HEADER */
-header{position:relative;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:18px 32px;border-bottom:1px solid var(--border);background:rgba(13,17,23,0.95);backdrop-filter:blur(10px);}
+header{position:relative;z-index:20;display:flex;align-items:center;justify-content:space-between;padding:18px 32px;border-bottom:1px solid var(--border);background:rgba(33,33,48,0.97);backdrop-filter:blur(10px);}
 .logo{display:flex;align-items:center;gap:12px;}
 .logo-text{font-family:var(--font-display);font-size:28px;letter-spacing:0.06em;color:var(--white);line-height:1;}
-.logo-badge{background:var(--accent);color:var(--white);font-size:9px;font-family:var(--font-mono);padding:3px 7px;border-radius:3px;letter-spacing:0.1em;align-self:center;}
+.logo-badge{background:var(--accent);color:var(--white);font-size:9px;font-family:var(--font-mono);padding:3px 7px;border-radius:4px;letter-spacing:0.1em;align-self:center;}
 .logo-frc{font-size:11px;color:var(--muted);font-weight:300;letter-spacing:0.12em;}
 .pulse{width:7px;height:7px;border-radius:50%;background:var(--accent);display:inline-block;animation:pulse 2s ease-in-out infinite;margin-left:6px;vertical-align:middle;}
 @keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.6);}}
+.header-actions{display:flex;align-items:center;gap:14px;}
+.hist-btn{background:none;border:1px solid var(--border2);color:var(--muted);font-size:12px;font-family:var(--font-mono);padding:6px 12px;border-radius:8px;cursor:pointer;transition:all .2s;}
+.hist-btn:hover{color:var(--white);border-color:var(--white);}
 
-/* PROGRESS */
-.progress-bar{position:relative;z-index:10;display:flex;align-items:center;gap:0;padding:0 32px;background:rgba(13,17,23,.8);border-bottom:1px solid var(--border);}
-.prog-step{display:flex;align-items:center;gap:8px;padding:12px 20px 12px 0;font-size:11px;font-family:var(--font-mono);color:var(--muted);cursor:pointer;transition:color .2s;border-bottom:2px solid transparent;margin-bottom:-1px;}
-.prog-step:hover{color:var(--white);}
-.prog-step.active{color:var(--white);border-bottom-color:var(--accent);}
-.prog-step.done{color:var(--accent);}
-.prog-num{width:20px;height:20px;border-radius:50%;border:1px solid currentColor;display:flex;align-items:center;justify-content:center;font-size:10px;}
-.prog-step.done .prog-num{background:var(--accent2);border-color:var(--accent);color:var(--black);}
-.prog-step.active .prog-num{background:var(--accent);border-color:var(--accent);color:var(--white);}
-.prog-div{width:24px;height:1px;background:var(--border2);margin-bottom:0;}
+/* PROGRESS (hidden - replaced by sidebar nav) */
 
 /* MAIN */
-.app{position:relative;z-index:1;display:grid;grid-template-columns:360px 1fr;min-height:calc(100vh - 105px);}
+.app{position:relative;z-index:1;display:grid;grid-template-columns:360px 1fr;min-height:calc(100vh - 60px);}
 
 /* LEFT SIDEBAR */
-.sidebar{border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;max-height:calc(100vh - 105px);}
-.tab-nav{display:flex;border-bottom:1px solid var(--border);}
-.tab-btn{flex:1;padding:13px 8px;font-size:11px;font-family:var(--font-mono);letter-spacing:0.1em;text-transform:uppercase;color:var(--muted);background:none;border:none;border-bottom:2px solid transparent;margin-bottom:-1px;cursor:pointer;transition:all .2s;}
-.tab-btn:hover{color:var(--white);}
-.tab-btn.active{color:var(--white);border-bottom-color:var(--accent);}
-.tab-content{display:none;padding:20px;}
+.sidebar{border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;max-height:calc(100vh - 60px);}
+.sidebar-brand{padding:18px 16px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;}
+.sidebar-brand-icon{width:34px;height:34px;background:linear-gradient(135deg,var(--accent),var(--accent2));border-radius:9px;display:flex;align-items:center;justify-content:center;font-family:var(--font-display);font-size:18px;color:var(--white);}
+.sidebar-brand-name{font-family:var(--font-display);font-size:22px;letter-spacing:.05em;color:var(--white);}
+.sidebar-brand-sub{font-size:10px;color:var(--muted);font-family:var(--font-mono);}
+.nav-section-label{font-size:10px;font-family:var(--font-mono);letter-spacing:.15em;text-transform:uppercase;color:var(--muted2);padding:10px 12px 4px;margin-top:4px;}
+.tab-nav{display:flex;flex-direction:column;gap:2px;padding:16px 12px;border-bottom:1px solid var(--border);}
+.tab-btn{display:flex;align-items:center;gap:10px;padding:10px 12px;font-size:13px;font-family:var(--font-body);font-weight:500;color:var(--muted);background:none;border:none;border-radius:10px;cursor:pointer;transition:all .2s;text-align:left;width:100%;}
+.tab-btn .nav-icon{font-size:16px;width:22px;text-align:center;flex-shrink:0;}
+.tab-btn:hover{color:var(--white);background:rgba(244,244,244,0.05);}
+.tab-btn.active{color:var(--white);background:rgba(201,0,0,0.12);border:1px solid rgba(201,0,0,0.25);}
+.tab-btn.active .nav-icon{filter:none;}
+.tab-content{display:none;padding:16px;}
 .tab-content.active{display:block;animation:fadeIn .2s ease;}
 @keyframes fadeIn{from{opacity:0;}to{opacity:1;}}
 
@@ -60,29 +61,28 @@ header{position:relative;z-index:20;display:flex;align-items:center;justify-cont
 
 /* CAR CATEGORIES */
 .cat-list{display:flex;flex-direction:column;gap:4px;margin-bottom:20px;}
-.cat-item{border:1px solid var(--border);border-radius:8px;overflow:hidden;}
-.cat-header{display:flex;align-items:center;gap:10px;padding:10px 12px;cursor:pointer;transition:background .15s;}
-.cat-header:hover{background:rgba(245,240,232,.03);}
+.cat-item{border:1px solid var(--border);border-radius:12px;overflow:hidden;box-shadow:0 2px 8px rgba(0,0,0,0.25);}
+.cat-header{display:flex;align-items:center;gap:10px;padding:10px 14px;cursor:pointer;transition:background .15s;border-radius:12px;}
+.cat-header:hover{background:rgba(244,244,244,0.04);}
 .cat-icon{font-size:16px;width:28px;text-align:center;flex-shrink:0;}
 .cat-name{font-size:12px;font-weight:500;color:var(--white);flex:1;}
-
 .cat-arrow{font-size:10px;color:var(--muted);transition:transform .2s;}
 .cat-item.open .cat-arrow{transform:rotate(90deg);}
 .cat-models{display:none;padding:0 10px 10px;border-top:1px solid var(--border);}
 .cat-item.open .cat-models{display:block;}
 .model-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-top:8px;}
-.model-btn{padding:8px 10px;border:1px solid var(--border);border-radius:6px;background:none;color:var(--muted);font-size:11px;font-family:var(--font-body);cursor:pointer;transition:all .15s;text-align:left;line-height:1.3;}
-.model-btn:hover{border-color:var(--border2);color:var(--white);background:rgba(245,240,232,.03);}
-.model-btn.selected{border-color:var(--accent);color:var(--white);background:rgba(224,32,32,.08);}
+.model-btn{padding:9px 10px;border:1px solid var(--border);border-radius:10px;background:none;color:var(--muted);font-size:11px;font-family:var(--font-body);cursor:pointer;transition:all .15s;text-align:left;line-height:1.3;}
+.model-btn:hover{border-color:var(--border2);color:var(--white);background:rgba(244,244,244,0.04);}
+.model-btn.selected{border-color:var(--accent);color:var(--white);background:linear-gradient(135deg,rgba(201,0,0,0.14),rgba(201,0,0,0.04));}
 .model-brand{font-size:9px;color:var(--muted);display:block;font-family:var(--font-mono);}
 
 /* SCENARIOS */
 .city-section{margin-bottom:18px;}
 .city-label{font-size:10px;font-family:var(--font-mono);color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px;padding-left:2px;}
 .scenario-grid{display:grid;grid-template-columns:1fr 1fr;gap:5px;}
-.sc-card{border:1px solid var(--border);border-radius:8px;padding:10px 11px;cursor:pointer;transition:all .15s;background:none;}
-.sc-card:hover{border-color:var(--border2);background:rgba(245,240,232,.03);}
-.sc-card.selected{border-color:var(--accent);background:rgba(224,32,32,.07);}
+.sc-card{border:1px solid var(--border);border-radius:12px;padding:10px 11px;cursor:pointer;transition:all .15s;background:none;box-shadow:0 2px 8px rgba(0,0,0,0.2);}
+.sc-card:hover{border-color:var(--border2);background:rgba(244,244,244,0.03);}
+.sc-card.selected{border-color:var(--accent);background:linear-gradient(135deg,rgba(201,0,0,0.14),rgba(201,0,0,0.04));}
 .sc-name{font-size:12px;font-weight:500;color:var(--white);line-height:1.3;margin-bottom:3px;}
 .sc-time{font-size:10px;color:var(--muted);font-family:var(--font-mono);}
 .sc-card.selected .sc-name{color:var(--accent);}
@@ -90,31 +90,50 @@ header{position:relative;z-index:20;display:flex;align-items:center;justify-cont
 /* CHARACTERS */
 .char-section{display:flex;flex-direction:column;gap:16px;}
 .count-row{display:flex;gap:5px;flex-wrap:wrap;}
-.count-btn{width:38px;height:38px;border:1px solid var(--border);border-radius:7px;background:none;color:var(--muted);font-size:14px;font-weight:500;cursor:pointer;transition:all .15s;display:flex;align-items:center;justify-content:center;}
+.count-btn{min-width:38px;height:42px;padding:0 8px;border:1px solid var(--border);border-radius:10px;background:none;color:var(--muted);font-size:13px;font-weight:500;cursor:pointer;transition:all .15s;display:flex;flex-direction:column;align-items:center;justify-content:center;line-height:1;}
+.count-btn .cb-sub{font-size:8px;font-family:var(--font-mono);margin-top:2px;color:var(--muted2);}
 .count-btn:hover{border-color:var(--border2);color:var(--white);}
-.count-btn.selected{border-color:var(--accent);background:rgba(224,32,32,.08);color:var(--accent);}
+.count-btn.selected{border-color:var(--accent);background:linear-gradient(135deg,rgba(201,0,0,0.14),rgba(201,0,0,0.04));color:var(--accent);}
 .age-grid{display:grid;grid-template-columns:1fr;gap:5px;}
-.age-btn{padding:11px 14px;border:1px solid var(--border);border-radius:8px;background:none;cursor:pointer;transition:all .15s;text-align:left;}
-.age-btn:hover{border-color:var(--border2);background:rgba(245,240,232,.03);}
-.age-btn.selected{border-color:var(--accent);background:rgba(224,32,32,.08);}
+.age-btn{padding:11px 14px;border:1px solid var(--border);border-radius:12px;background:none;cursor:pointer;transition:all .15s;text-align:left;}
+.age-btn:hover{border-color:var(--border2);background:rgba(244,244,244,0.03);}
+.age-btn.selected{border-color:var(--accent);background:linear-gradient(135deg,rgba(201,0,0,0.14),rgba(201,0,0,0.04));}
 .age-label{font-size:12px;font-weight:500;color:var(--white);display:block;margin-bottom:2px;}
 .age-sub{font-size:10px;color:var(--muted);font-family:var(--font-mono);}
 .age-btn.selected .age-label{color:var(--accent);}
 
-/* OPTIONS TAB */
+/* OPTIONS */
 .opt-section{margin-bottom:16px;}
 .opt-row{display:flex;gap:5px;flex-wrap:wrap;}
-.opt-chip{padding:7px 12px;border:1px solid var(--border);border-radius:6px;background:none;color:var(--muted);font-size:11px;font-family:var(--font-body);cursor:pointer;transition:all .15s;}
+.opt-chip{padding:7px 12px;border:1px solid var(--border);border-radius:8px;background:none;color:var(--muted);font-size:11px;font-family:var(--font-body);cursor:pointer;transition:all .15s;}
 .opt-chip:hover{border-color:var(--border2);color:var(--white);}
-.opt-chip.selected{border-color:var(--white);background:rgba(245,240,232,.06);color:var(--white);}
+.opt-chip.selected{border-color:var(--white);background:rgba(244,244,244,0.07);color:var(--white);}
+
+/* REFERENCE TAB */
+.ref-drop{border:2px dashed var(--border2);border-radius:14px;padding:28px 20px;text-align:center;cursor:pointer;transition:all .2s;margin-bottom:16px;position:relative;}
+.ref-drop:hover,.ref-drop.dragover{border-color:var(--accent);background:rgba(201,0,0,0.05);}
+.ref-drop-label{font-size:12px;color:var(--muted);line-height:1.7;}
+.ref-drop-icon{font-size:28px;margin-bottom:8px;display:block;}
+.ref-img-preview{max-height:120px;max-width:100%;border-radius:8px;display:block;margin:0 auto 10px;}
+.ref-remove{font-size:11px;font-family:var(--font-mono);color:var(--accent);background:none;border:none;cursor:pointer;display:block;margin:4px auto 0;}
+.ref-privacy{font-size:10px;font-family:var(--font-mono);color:var(--muted2);margin-top:10px;text-align:center;}
+.ref-section{margin-bottom:14px;}
+.ref-checks{display:flex;flex-direction:column;gap:6px;}
+.ref-check-item{display:flex;align-items:center;gap:8px;padding:7px 10px;border:1px solid var(--border);border-radius:8px;cursor:pointer;transition:background .15s;}
+.ref-check-item:hover{background:rgba(244,244,244,0.03);}
+.ref-check-item input[type=checkbox]{accent-color:var(--accent);width:13px;height:13px;cursor:pointer;}
+.ref-check-label{font-size:11px;color:var(--white);flex:1;}
+.ref-ignore-section{border:1px solid rgba(201,0,0,0.2);border-radius:10px;padding:12px;background:rgba(201,0,0,0.04);}
+.ref-ignore-label{font-size:10px;font-family:var(--font-mono);color:var(--accent);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;}
 
 /* RIGHT PANEL */
 .panel-right{display:flex;flex-direction:column;}
-.output-wrap{flex:1;padding:36px 44px;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;}
+.output-wrap{flex:1;padding:40px 48px;display:flex;flex-direction:column;justify-content:center;overflow-y:auto;}
 
 /* EMPTY STATE */
 .empty-state{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:400px;gap:14px;opacity:.25;}
-.empty-glyph{font-family:var(--font-display);font-size:72px;color:var(--accent);line-height:1;}
+.empty-glyph{font-family:var(--font-display);font-size:72px;color:var(--accent);line-height:1;animation:float 3s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
 .empty-txt{font-size:14px;color:var(--muted);text-align:center;line-height:1.7;font-weight:300;}
 
 /* OUTPUT */
@@ -123,22 +142,21 @@ header{position:relative;z-index:20;display:flex;align-items:center;justify-cont
 @keyframes slideUp{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
 .out-meta{display:flex;gap:7px;flex-wrap:wrap;align-items:center;}
 .tag{font-size:10px;font-family:var(--font-mono);padding:3px 9px;border-radius:4px;border:1px solid var(--border2);color:var(--muted);}
-.tag.car{border-color:rgba(224,32,32,.5);color:var(--accent);}
-.tag.loc{border-color:rgba(224,32,32,.5);color:var(--accent);}
-.tag.ppl{border-color:rgba(42,157,232,.5);color:var(--accent);}
+.tag.car{border-color:rgba(201,0,0,.5);color:var(--accent);}
+.tag.loc{border-color:rgba(201,0,0,.5);color:var(--accent);}
 .out-label{font-size:10px;font-family:var(--font-mono);letter-spacing:.2em;color:var(--muted);margin-bottom:10px;text-transform:uppercase;}
-.prompt-card{background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:26px 28px;position:relative;overflow:hidden;}
+.prompt-card{background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:28px 30px;position:relative;overflow:hidden;box-shadow:0 8px 32px rgba(0,0,0,0.5);}
 .prompt-card::before{content:'❝';font-family:var(--font-display);font-size:60px;color:var(--accent);opacity:.1;position:absolute;top:4px;left:14px;line-height:1;pointer-events:none;}
 #promptText{font-size:13.5px;line-height:1.9;color:var(--white);font-weight:300;position:relative;z-index:1;}
-.neg-box{background:rgba(224,32,32,.05);border:1px solid rgba(224,32,32,.15);border-radius:8px;padding:12px 16px;}
+.neg-box{background:rgba(201,0,0,.05);border:1px solid rgba(201,0,0,.18);border-radius:10px;padding:12px 16px;}
 .neg-label{font-size:9px;font-family:var(--font-mono);color:var(--accent);letter-spacing:.15em;text-transform:uppercase;margin-bottom:5px;}
 #negText{font-size:11px;color:var(--muted);font-family:var(--font-mono);line-height:1.6;}
 .action-row{display:flex;gap:8px;flex-wrap:wrap;}
-.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:8px;font-size:13px;font-family:var(--font-body);font-weight:500;cursor:pointer;transition:all .2s;border:none;}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:10px 18px;border-radius:10px;font-size:13px;font-family:var(--font-body);font-weight:500;cursor:pointer;transition:all .2s;border:none;}
 .btn-primary{background:var(--accent);color:var(--white);}
-.btn-primary:hover{background:#c01818;}
+.btn-primary:hover{background:var(--accent2);}
 .btn-outline{background:none;color:var(--white);border:1px solid var(--border2);}
-.btn-outline:hover{background:rgba(245,240,232,.05);}
+.btn-outline:hover{background:rgba(244,244,244,0.05);}
 .btn-ghost{background:none;color:var(--muted);border:1px solid var(--border);}
 .btn-ghost:hover{color:var(--white);border-color:var(--border2);}
 
@@ -151,10 +169,17 @@ header{position:relative;z-index:20;display:flex;align-items:center;justify-cont
 .json-pre.show{display:block;animation:fadeIn .25s ease;}
 #jsonText{font-family:var(--font-mono);font-size:11px;color:#92c492;white-space:pre-wrap;line-height:1.7;}
 
+/* PRESETS BAR */
+.presets-bar{padding:12px 48px;border-top:1px solid var(--border);background:rgba(33,33,48,.7);}
+.presets-label{font-size:9px;font-family:var(--font-mono);color:var(--muted);letter-spacing:.18em;text-transform:uppercase;margin-bottom:8px;}
+.preset-pills{display:flex;gap:6px;flex-wrap:wrap;}
+.preset-pill{padding:7px 14px;border:1px solid var(--border2);border-radius:8px;background:none;color:var(--white);font-size:12px;font-family:var(--font-body);cursor:pointer;transition:all .2s;}
+.preset-pill:hover{border-color:var(--accent);background:rgba(201,0,0,0.08);color:var(--accent);}
+
 /* GENERATE BAR */
-.gen-bar{padding:18px 44px;border-top:1px solid var(--border);display:flex;align-items:center;gap:14px;background:rgba(13,17,23,.9);}
-.gen-btn{flex:1;padding:15px 28px;background:var(--accent);color:var(--white);border:none;border-radius:10px;font-family:var(--font-display);font-size:20px;letter-spacing:.1em;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:10px;}
-.gen-btn:hover:not(:disabled){background:#c01818;transform:translateY(-1px);}
+.gen-bar{padding:16px 48px;border-top:1px solid var(--border);display:flex;align-items:center;gap:14px;background:rgba(33,33,48,.95);}
+.gen-btn{flex:1;padding:15px 28px;background:var(--accent);color:var(--white);border:none;border-radius:12px;font-family:var(--font-display);font-size:20px;letter-spacing:.1em;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;gap:10px;}
+.gen-btn:hover:not(:disabled){background:var(--accent2);transform:translateY(-1px);}
 .gen-btn:active:not(:disabled){transform:translateY(0);}
 .gen-btn:disabled{background:var(--bg3);color:var(--muted2);cursor:not-allowed;}
 .gen-arrow{transition:transform .2s;}
@@ -167,45 +192,41 @@ header{position:relative;z-index:20;display:flex;align-items:center;justify-cont
 ::-webkit-scrollbar-track{background:transparent;}
 ::-webkit-scrollbar-thumb{background:var(--bg3);border-radius:3px;}
 
-/* HISTORY PANEL */
-.hist-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:100;backdrop-filter:blur(4px);}
-.hist-overlay.open{display:block;}
-.hist-panel{position:fixed;top:0;right:-420px;width:400px;height:100vh;background:var(--bg2);border-left:1px solid var(--border);z-index:101;display:flex;flex-direction:column;transition:right .3s ease;overflow:hidden;}
-.hist-panel.open{right:0;}
-.hist-head{padding:20px 20px 16px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
-.hist-title{font-family:var(--font-display);font-size:20px;letter-spacing:.08em;color:var(--white);}
-.hist-close{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;padding:4px;line-height:1;transition:color .15s;}
-.hist-close:hover{color:var(--white);}
-.hist-body{flex:1;overflow-y:auto;padding:12px;}
-.hist-empty{padding:40px 20px;text-align:center;color:var(--muted);font-size:13px;font-weight:300;}
-.hist-item{border:1px solid var(--border);border-radius:8px;padding:12px 14px;margin-bottom:8px;display:flex;flex-direction:column;gap:6px;}
-.hist-item:hover{border-color:var(--border2);}
-.hist-item-top{display:flex;align-items:center;justify-content:space-between;gap:8px;}
-.hist-car{font-size:12px;font-weight:500;color:var(--white);}
-.hist-date{font-size:10px;font-family:var(--font-mono);color:var(--muted);}
-.hist-sc{font-size:11px;color:var(--accent);font-family:var(--font-mono);}
-.hist-preview{font-size:11px;color:var(--muted);line-height:1.5;font-weight:300;}
-.hist-copy{background:none;border:1px solid var(--border);border-radius:5px;color:var(--muted);font-size:10px;font-family:var(--font-mono);padding:3px 9px;cursor:pointer;transition:all .15s;white-space:nowrap;}
-.hist-copy:hover{border-color:var(--border2);color:var(--white);}
-.hist-foot{padding:14px 20px;border-top:1px solid var(--border);display:flex;gap:8px;}
-.hist-clear{flex:1;padding:9px;background:none;border:1px solid var(--border);border-radius:7px;color:var(--muted);font-size:12px;font-family:var(--font-body);cursor:pointer;transition:all .15s;}
-.hist-clear:hover{border-color:rgba(224,32,32,.5);color:var(--accent);}
-.hist-export{flex:1;padding:9px;background:none;border:1px solid var(--border);border-radius:7px;color:var(--muted);font-size:12px;font-family:var(--font-body);cursor:pointer;transition:all .15s;}
-.hist-export:hover{border-color:var(--border2);color:var(--white);}
-.hist-btn{display:flex;align-items:center;gap:6px;padding:7px 14px;background:none;border:1px solid var(--border);border-radius:7px;color:var(--muted);font-size:11px;font-family:var(--font-mono);cursor:pointer;transition:all .15s;}
-.hist-btn:hover{border-color:var(--border2);color:var(--white);}
-
-/* SELECTION SUMMARY (sticky bottom of sidebar) */
-.sel-summary{border-top:1px solid var(--border);padding:14px 20px;background:rgba(13,17,23,.8);}
+/* SELECTION SUMMARY */
+.sel-summary{border-top:1px solid var(--border);padding:14px 20px;background:rgba(33,33,48,.8);}
 .sel-row{display:flex;gap:6px;flex-wrap:wrap;}
 .sel-pill{font-size:10px;font-family:var(--font-mono);padding:3px 8px;border-radius:4px;background:var(--bg3);color:var(--muted);max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .sel-pill.filled{color:var(--white);}
+
+/* HISTORY OVERLAY */
+.hist-overlay{position:fixed;top:0;right:-380px;width:360px;height:100vh;background:var(--bg2);border-left:1px solid var(--border);z-index:100;display:flex;flex-direction:column;transition:right .3s ease;box-shadow:-4px 0 24px rgba(0,0,0,0.4);}
+.hist-overlay.open{right:0;}
+.hist-header{padding:18px 20px;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;}
+.hist-title{font-family:var(--font-display);font-size:20px;letter-spacing:.06em;}
+.hist-close{background:none;border:none;color:var(--muted);font-size:20px;cursor:pointer;transition:color .2s;}
+.hist-close:hover{color:var(--white);}
+.hist-list{flex:1;overflow-y:auto;padding:14px;}
+.hist-item{background:var(--bg3);border:1px solid var(--border);border-radius:12px;padding:12px 14px;margin-bottom:8px;}
+.hist-item-date{font-size:10px;font-family:var(--font-mono);color:var(--muted);margin-bottom:4px;}
+.hist-item-model{font-size:12px;font-weight:500;color:var(--accent);}
+.hist-item-scene{font-size:11px;color:var(--muted);margin-bottom:6px;}
+.hist-item-preview{font-size:11px;color:var(--white);opacity:.7;line-height:1.5;margin-bottom:8px;}
+.hist-item-copy{background:none;border:1px solid var(--border2);color:var(--muted);font-size:10px;font-family:var(--font-mono);padding:4px 10px;border-radius:6px;cursor:pointer;transition:all .2s;}
+.hist-item-copy:hover{color:var(--white);border-color:var(--white);}
+.hist-empty{text-align:center;padding:40px 20px;color:var(--muted);font-size:13px;}
+.hist-footer{padding:14px 20px;border-top:1px solid var(--border);}
+.hist-clear{width:100%;padding:10px;background:none;border:1px solid rgba(201,0,0,.3);color:var(--accent);border-radius:8px;font-size:12px;font-family:var(--font-mono);cursor:pointer;transition:all .2s;}
+.hist-clear:hover{background:rgba(201,0,0,.1);}
+
+/* OVERLAY BACKDROP */
+.hist-backdrop{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:99;display:none;}
+.hist-backdrop.open{display:block;}
 
 @media(max-width:768px){
   .app{grid-template-columns:1fr;}
   .sidebar{max-height:none;border-right:none;border-bottom:1px solid var(--border);}
   .output-wrap{padding:20px;}
-  .gen-bar{padding:14px 20px;}
+  .gen-bar,.presets-bar{padding:14px 20px;}
   header{padding:14px 20px;}
   .progress-bar{padding:0 20px;}
 }
@@ -214,84 +235,119 @@ header{position:relative;z-index:20;display:flex;align-items:center;justify-cont
 <body>
 
 <header>
-  <div class="logo">
-    <span class="logo-text">GeorgIA</span>
-    <span class="logo-badge">AI</span>
-    <span class="pulse"></span>
-    <span class="logo-frc">Florida Rental Car · Prompt Engine</span>
+  <div style="font-size:11px;font-family:var(--font-mono);color:var(--muted);display:flex;align-items:center;gap:8px;">
+    <span style="color:var(--accent)">●</span>
+    <span>Florida Rental Car</span>
+    <span style="opacity:.4">›</span>
+    <span style="color:var(--white)">Prompt Engine</span>
   </div>
-  <div style="display:flex;align-items:center;gap:12px;">
-    <button class="hist-btn" onclick="openHistory()">
-      <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 3h18v18H3zM3 9h18M9 21V9"/></svg>
-      Histórico <span id="histCount" style="background:var(--accent);color:var(--white);border-radius:10px;padding:1px 6px;font-size:9px;display:none;">0</span>
-    </button>
+  <div class="header-actions">
+    <button class="hist-btn" onclick="toggleHistory()">📋 Histórico</button>
     <a href="https://floridarentalcar.com.br" target="_blank" style="font-size:11px;color:var(--muted);font-family:var(--font-mono);text-decoration:none;opacity:.6;">floridarentalcar.com.br ↗</a>
   </div>
 </header>
 
-<div class="progress-bar">
-  <div class="prog-step active" id="ps1" onclick="switchTab('cars')">
-    <span class="prog-num">1</span> CATEGORIA
-  </div>
-  <div class="prog-div"></div>
-  <div class="prog-step" id="ps2" onclick="switchTab('scenarios')">
-    <span class="prog-num">2</span> CENÁRIO
-  </div>
-  <div class="prog-div"></div>
-  <div class="prog-step" id="ps3" onclick="switchTab('characters')">
-    <span class="prog-num">3</span> PERSONAGENS
-  </div>
-  <div class="prog-div"></div>
-  <div class="prog-step" id="ps4" onclick="switchTab('options')">
-    <span class="prog-num">4</span> OPÇÕES
-  </div>
-</div>
+
 
 <div class="app">
   <!-- SIDEBAR -->
   <div class="sidebar">
+    <div class="sidebar-brand">
+      <div class="sidebar-brand-icon">G</div>
+      <div>
+        <div class="sidebar-brand-name">GeorgIA</div>
+        <div class="sidebar-brand-sub">Prompt Engine · FRC</div>
+      </div>
+    </div>
     <div class="tab-nav">
-      <button class="tab-btn active" id="tb-cars" onclick="switchTab('cars')">Categoria</button>
-      <button class="tab-btn" id="tb-scenarios" onclick="switchTab('scenarios')">Cenário</button>
-      <button class="tab-btn" id="tb-characters" onclick="switchTab('characters')">Pessoas</button>
-      <button class="tab-btn" id="tb-options" onclick="switchTab('options')">Opções</button>
+      <div class="nav-section-label">Configuração</div>
+      <button class="tab-btn active" id="tb-cars" onclick="switchTab('cars')">
+        <span class="nav-icon">🚗</span> Categoria
+      </button>
+      <button class="tab-btn" id="tb-scenarios" onclick="switchTab('scenarios')">
+        <span class="nav-icon">📍</span> Cenário
+      </button>
+      <button class="tab-btn" id="tb-characters" onclick="switchTab('characters')">
+        <span class="nav-icon">👥</span> Pessoas
+      </button>
+      <button class="tab-btn" id="tb-options" onclick="switchTab('options')">
+        <span class="nav-icon">⚙️</span> Opções
+      </button>
+      <div class="nav-section-label">Criativo</div>
+      <button class="tab-btn" id="tb-reference" onclick="switchTab('reference')">
+        <span class="nav-icon">🖼</span> Referência
+      </button>
     </div>
 
-    <!-- TAB: CATEGORIES -->
     <div class="tab-content active" id="tab-cars">
-      <div class="sec-label" style="margin-top:4px;">Categorias FRC</div>
+      <div class="sec-label">Selecione o veículo</div>
       <div class="cat-list" id="catList"></div>
     </div>
 
-    <!-- TAB: SCENARIOS -->
     <div class="tab-content" id="tab-scenarios">
       <div id="scenarioList"></div>
     </div>
 
-    <!-- TAB: CHARACTERS -->
     <div class="tab-content" id="tab-characters">
       <div class="char-section">
         <div>
           <div class="sec-label">Quantidade de pessoas</div>
           <div class="count-row" id="countRow"></div>
         </div>
-        <div id="ageBlock">
+        <div id="ageSection">
           <div class="sec-label">Faixa etária</div>
           <div class="age-grid" id="ageGrid"></div>
         </div>
-        <div id="profileBlock">
+        <div id="profileSection">
           <div class="sec-label">Perfil</div>
           <div class="opt-row" id="profileRow"></div>
         </div>
       </div>
     </div>
 
-    <!-- TAB: OPTIONS -->
     <div class="tab-content" id="tab-options">
       <div id="optionsList"></div>
     </div>
 
-    <!-- SUMMARY -->
+    <div class="tab-content" id="tab-reference">
+      <div class="sec-label">Imagem de Referência</div>
+      <div class="ref-drop" id="refDrop" onclick="document.getElementById('refFileInput').click()">
+        <span class="ref-drop-icon">🖼</span>
+        <div class="ref-drop-label">Cole (Ctrl+V) ou arraste uma imagem<br><small style="opacity:.6">ou clique para selecionar</small></div>
+      </div>
+      <input type="file" id="refFileInput" accept="image/*" style="display:none" onchange="handleRefFile(this.files[0])">
+      <p class="ref-privacy">🔒 A imagem fica só no seu navegador — nada é enviado.</p>
+
+      <div id="refChecks" style="display:none;margin-top:14px;">
+        <div class="ref-section">
+          <div class="sec-label">O que usar como referência</div>
+          <div class="ref-checks">
+            <label class="ref-check-item"><input type="checkbox" id="rc1"><span class="ref-check-label">Horário do dia (golden hour, noite, etc.)</span></label>
+            <label class="ref-check-item"><input type="checkbox" id="rc2"><span class="ref-check-label">Qualidade da luz (dura, suave, difusa)</span></label>
+            <label class="ref-check-item"><input type="checkbox" id="rc3"><span class="ref-check-label">Clima e céu</span></label>
+            <label class="ref-check-item"><input type="checkbox" id="rc4"><span class="ref-check-label">Tom de cor geral (quente/frio/neutro)</span></label>
+            <label class="ref-check-item"><input type="checkbox" id="rc5"><span class="ref-check-label">Ângulo de câmera</span></label>
+            <label class="ref-check-item"><input type="checkbox" id="rc6"><span class="ref-check-label">Profundidade de campo (bokeh)</span></label>
+            <label class="ref-check-item"><input type="checkbox" id="rc7"><span class="ref-check-label">Enquadramento e proporção</span></label>
+            <label class="ref-check-item"><input type="checkbox" id="rc8"><span class="ref-check-label">Tipo de localização / ambiente</span></label>
+            <label class="ref-check-item"><input type="checkbox" id="rc9"><span class="ref-check-label">Elementos de fundo</span></label>
+            <label class="ref-check-item"><input type="checkbox" id="rc10"><span class="ref-check-label">Estilo arquitetônico</span></label>
+            <label class="ref-check-item"><input type="checkbox" id="rc11"><span class="ref-check-label">Estilo de roupa dos personagens</span></label>
+            <label class="ref-check-item"><input type="checkbox" id="rc12"><span class="ref-check-label">Expressão e pose dos personagens</span></label>
+          </div>
+        </div>
+        <div class="ref-ignore-section" style="margin-top:14px;">
+          <div class="ref-ignore-label">O que IGNORAR</div>
+          <div class="ref-checks">
+            <label class="ref-check-item"><input type="checkbox" id="ri1"><span class="ref-check-label">Marca/modelo do carro</span></label>
+            <label class="ref-check-item"><input type="checkbox" id="ri2"><span class="ref-check-label">Identidade das pessoas</span></label>
+            <label class="ref-check-item"><input type="checkbox" id="ri3"><span class="ref-check-label">Texto ou logos visíveis</span></label>
+            <label class="ref-check-item"><input type="checkbox" id="ri4"><span class="ref-check-label">Cores do veículo</span></label>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <div class="sel-summary" style="margin-top:auto;">
       <div class="sel-row" id="selSummary">
         <span class="sel-pill" id="sp-car">— categoria</span>
@@ -304,23 +360,18 @@ header{position:relative;z-index:20;display:flex;align-items:center;justify-cont
   <!-- RIGHT PANEL -->
   <div class="panel-right">
     <div class="output-wrap">
-
       <div class="empty-state" id="emptyState">
         <div class="empty-glyph">◈</div>
-        <div class="empty-txt">Configure categoria, cenário<br>e personagens para gerar</div>
-        <div style="margin-top:2.5rem;font-size:12px;font-family:'DM Mono',monospace;color:rgba(245,240,232,0.35);letter-spacing:0.16em;text-transform:uppercase;text-align:center;line-height:2;pointer-events:none;">Developed by Jorge Celesi for FRC</div>
+        <div class="empty-txt">Configure categoria, cenário<br>e clique em GERAR PROMPT</div>
+        <div style="margin-top:2.5rem;font-size:12px;font-family:'DM Mono',monospace;color:rgba(244,244,244,0.25);letter-spacing:0.16em;text-transform:uppercase;text-align:center;line-height:2;pointer-events:none;">Developed by Jorge Celesi for FRC</div>
       </div>
 
       <div class="output-card" id="outputCard">
         <div class="out-meta" id="outMeta"></div>
-
         <div>
           <div class="out-label">Prompt Cinematográfico</div>
-          <div class="prompt-card">
-            <p id="promptText"></p>
-          </div>
+          <div class="prompt-card"><p id="promptText"></p></div>
         </div>
-
         <div class="action-row">
           <button class="btn btn-primary" onclick="copyPrompt()">
             <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="9" y="9" width="13" height="13" rx="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>
@@ -331,34 +382,34 @@ header{position:relative;z-index:20;display:flex;align-items:center;justify-cont
             Nova variação
           </button>
           <button class="btn btn-ghost" onclick="resetAll()">Resetar</button>
-          <button class="btn btn-ghost" onclick="exportHistory()" title="Exportar histórico de prompts">
-            <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-            Exportar histórico
-          </button>
         </div>
-
         <div class="neg-box">
           <div class="neg-label">Negative prompt</div>
           <div id="negText"></div>
         </div>
-
         <div>
           <button class="json-toggle" id="jsonToggle" onclick="toggleJson()">
             <svg class="json-arrow" width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="9 18 15 12 9 6"/></svg>
             Configuração JSON
           </button>
-          <div class="json-pre" id="jsonPre">
-            <pre id="jsonText"></pre>
-          </div>
+          <div class="json-pre" id="jsonPre"><pre id="jsonText"></pre></div>
         </div>
       </div>
     </div>
 
-    <div style="padding:12px 44px 0;border-top:1px solid var(--border);background:rgba(13,17,23,.9);">
-      <div style="font-size:10px;font-family:'DM Mono',monospace;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-bottom:8px;">Preset rápido</div>
-      <div id="presetsRow" style="display:flex;gap:6px;flex-wrap:wrap;"></div>
+    <!-- PRESETS BAR -->
+    <div class="presets-bar">
+      <div class="presets-label">Preset rápido</div>
+      <div class="preset-pills">
+        <button class="preset-pill" onclick="applyPreset('copa')">🏆 Copa do Mundo</button>
+        <button class="preset-pill" onclick="applyPreset('verao')">☀️ Verão 2026</button>
+        <button class="preset-pill" onclick="applyPreset('premium')">💎 Premium</button>
+        <button class="preset-pill" onclick="applyPreset('familia')">👨‍👩‍👧 Família</button>
+      </div>
     </div>
-    <div class="gen-bar" style="border-top:1px solid var(--border);margin-top:12px;">
+
+    <!-- GENERATE BAR -->
+    <div class="gen-bar">
       <button class="gen-btn" id="genBtn" disabled onclick="generate()">
         <span>GERAR PROMPT</span>
         <span class="gen-arrow">→</span>
@@ -368,192 +419,191 @@ header{position:relative;z-index:20;display:flex;align-items:center;justify-cont
   </div>
 </div>
 
+<!-- HISTORY OVERLAY -->
+<div class="hist-backdrop" id="histBackdrop" onclick="toggleHistory()"></div>
+<div class="hist-overlay" id="histOverlay">
+  <div class="hist-header">
+    <span class="hist-title">Histórico</span>
+    <button class="hist-close" onclick="toggleHistory()">✕</button>
+  </div>
+  <div class="hist-list" id="histList"></div>
+  <div class="hist-footer">
+    <button class="hist-clear" onclick="clearHistory()">Limpar tudo</button>
+  </div>
+</div>
+
 <script>
 /* ============================================================
    DATA
 ============================================================ */
 const CATEGORIES = [
-  {
-    id:'convertible', icon:'🏎', name:'Conversível', seats:4,
-    models:[
-      {id:'mustang_conv', name:'Mustang Conversível', brand:'FORD 2024', key:'2024 Ford Mustang EcoBoost convertible, soft-top fully retracted, vivid red paint, iconic pony badge'},
-    ]
-  },
-  {
-    id:'economico', icon:'🚗', name:'Econômico 5L', seats:5,
-    models:[
-      {id:'corolla', name:'Corolla LE', brand:'TOYOTA 2019', key:'2019 Toyota Corolla LE, silver metallic, clean compact sedan'},
-      {id:'cherokee', name:'Cherokee Latitude', brand:'JEEP 2019', key:'2019 Jeep Cherokee Latitude, white, compact crossover SUV'},
-      {id:'sonata', name:'Sonata SE', brand:'HYUNDAI 2019', key:'2019 Hyundai Sonata SE, pearl white, mid-size sedan'},
-    ]
-  },
-  {
-    id:'suv5', icon:'🚙', name:'SUV 5L', seats:5,
-    models:[
-      {id:'equinox', name:'Equinox LT', brand:'CHEVROLET 2024', key:'2024 Chevrolet Equinox LT, white, compact SUV'},
-      {id:'escape', name:'Escape Active', brand:'FORD 2024', key:'2024 Ford Escape Active, blue metallic, compact crossover SUV'},
-      {id:'rogue', name:'Rogue S', brand:'NISSAN 2024', key:'2024 Nissan Rogue S, pearl white, compact SUV'},
-    ]
-  },
-  {
-    id:'suv_luxo', icon:'💎', name:'SUV Luxo', seats:5,
-    models:[
-      {id:'xc90', name:'XC90 B5 Plus', brand:'VOLVO 2024', key:'2024 Volvo XC90 B5 Plus Bright Theme, crystal white pearl, ultra-premium SUV with distinctive Thor hammer headlights'},
-      {id:'q7', name:'Q7 Quattro', brand:'AUDI 2022', key:'2022 Audi Q7 Quattro 45 TFSI, glacier white metallic, luxury SUV with bold Singleframe grille'},
-      {id:'glb', name:'GLB 250', brand:'MERCEDES 2025', key:'2025 Mercedes-Benz GLB 250, polar white, premium compact SUV with star grille'},
-    ]
-  },
-  {
-    id:'suv_premium7', icon:'⬜', name:'SUV Premium 7L', seats:7,
-    models:[
-      {id:'suburban7', name:'Suburban LT', brand:'CHEVROLET 2023', key:'2023 Chevrolet Suburban LT, iridescent pearl tricoat white, full-size premium SUV'},
-    ]
-  },
-  {
-    id:'suv_premium8', icon:'🔲', name:'SUV Premium 8L', seats:8,
-    models:[
-      {id:'suburban8', name:'Suburban LS', brand:'CHEVROLET 2023', key:'2023 Chevrolet Suburban LS, summit white, large family SUV'},
-      {id:'expedition', name:'Expedition Max XLT', brand:'FORD 2024', key:'2024 Ford Expedition Max XLT, white platinum, full-size SUV'},
-    ]
-  },
-  {
-    id:'suv_elite7', icon:'🏅', name:'SUV Elite 7L', seats:7,
-    models:[
-      {id:'navigator', name:'Navigator L Black Label', brand:'LINCOLN 2024', key:'2024 Lincoln Navigator L Black Label, midnight black gloss, ultra-luxury full-size SUV with illuminated star grille'},
-      {id:'expedition_max', name:'Expedition Max XLT', brand:'FORD 2024', key:'2024 Ford Expedition Max XLT, agate black, full-size premium SUV'},
-    ]
-  },
-  {
-    id:'suv_elite8', icon:'🥇', name:'SUV Elite 8L', seats:8,
-    models:[
-      {id:'tahoe', name:'Tahoe LS', brand:'CHEVROLET 2023', key:'2023 Chevrolet Tahoe LS, summit white, full-size SUV'},
-      {id:'suburban_elite', name:'Suburban LT', brand:'CHEVROLET 2023', key:'2023 Chevrolet Suburban LT, iridescent pearl tricoat, large SUV'},
-    ]
-  },
-  {
-    id:'escalade', icon:'🖤', name:'Cadillac Escalade', seats:7,
-    models:[
-      {id:'escalade_sport', name:'Escalade Sport', brand:'CADILLAC 2023', key:'2023 Cadillac Escalade Sport, gloss black, ultra-luxury full-size SUV with bold angular design and chrome Cadillac crest'},
-      {id:'escalade_premium', name:'Escalade Premium Lux', brand:'CADILLAC 2023', key:'2023 Cadillac Escalade Premium Luxury Platinum, black raven, flagship luxury SUV'},
-    ]
-  },
-  {
-    id:'minivan7', icon:'🚐', name:'Minivan 7L', seats:7,
-    models:[
-      {id:'pacifica7', name:'Pacifica Touring', brand:'CHRYSLER 2025', key:'2025 Chrysler Pacifica Touring, brilliant black crystal, family minivan with sliding doors'},
-      {id:'sienna', name:'Sienna XSE', brand:'TOYOTA 2023', key:'2023 Toyota Sienna XSE, wind chill pearl, sporty minivan'},
-    ]
-  },
-  {
-    id:'minivan8', icon:'🚌', name:'Minivan 8L', seats:8,
-    models:[
-      {id:'pacifica8', name:'Pacifica Touring Plus', brand:'CHRYSLER 2022', key:'2022 Chrysler Pacifica Touring Plus, silver mist, 8-passenger minivan'},
-      {id:'carnival', name:'Carnival', brand:'KIA 2025', key:'2025 Kia Carnival, snow white pearl, modern 8-passenger minivan'},
-      {id:'odyssey', name:'Odyssey', brand:'HONDA 2026', key:'2026 Honda Odyssey, platinum white pearl, family minivan'},
-    ]
-  },
-  {
-    id:'compacto7', icon:'🔵', name:'Compacto Plus 7L', seats:7,
-    models:[
-      {id:'pacifica_comp', name:'Pacifica Touring-L Plus', brand:'CHRYSLER 2017', key:'2017 Chrysler Pacifica Touring-L Plus, billet silver metallic, 7-seat compact van'},
-    ]
-  },
-  {
-    id:'van12', icon:'🚍', name:'Van 12L', seats:12,
-    models:[
-      {id:'transit', name:'Transit 350 XLT', brand:'FORD 2021', key:'2021 Ford Transit 350 XLT, oxford white, full-size 12-passenger van'},
-    ]
-  },
-  {
-    id:'caminhonete', icon:'🛻', name:'Caminhonete', seats:5,
-    models:[
-      {id:'ram_limited', name:'RAM 1500 Limited', brand:'RAM 2022', key:'2022 RAM 1500 Limited, black, full-size pickup truck with chrome RAM head badge and imposing wide-body stance'},
-      {id:'ram_laramie', name:'RAM 1500 Laramie', brand:'RAM 2022', key:'2022 RAM 1500 Laramie, granite crystal metallic, full-size pickup truck'},
-    ]
-  },
-  {
-    id:'mustang', icon:'🐎', name:'Mustang', seats:4,
-    models:[
-      {id:'mustang_coupe', name:'Mustang EcoBoost', brand:'FORD 2024', key:'2024 Ford Mustang EcoBoost fastback coupe, shadow black, iconic muscle car with bold pony badge'},
-    ]
-  },
-  {
-    id:'sedan_ev', icon:'⚡', name:'Sedan Elétrico', seats:5,
-    models:[
-      {id:'model3', name:'Model 3 Long Range', brand:'TESLA 2021', key:'2021 Tesla Model 3 Long Range, pearl white multi-coat, sleek all-electric sedan with flush door handles'},
-    ]
-  },
-  {
-    id:'suv_ev', icon:'🔋', name:'SUV Elétrico', seats:5,
-    models:[
-      {id:'modely', name:'Model Y Performance', brand:'TESLA 2023', key:'2023 Tesla Model Y Performance, pearl white multi-coat, electric crossover SUV'},
-    ]
-  },
-  {
-    id:'cybertruck', icon:'🔷', name:'Tesla Cybertruck', seats:5,
-    models:[
-      {id:'cyber2025', name:'Cybertruck', brand:'TESLA 2025', key:'2025 Tesla Cybertruck, stainless steel angular exoskeleton body, futuristic brutalist electric truck with ultra-wide stance'},
-    ]
-  },
+  {id:'convertible',icon:'🏎',name:'Conversível',seats:4,models:[
+    {id:'mustang_conv',name:'Mustang Conversível',brand:'FORD 2024',key:'2024 Ford Mustang EcoBoost convertible, soft-top fully retracted, vivid red paint, iconic pony badge'},
+  ]},
+  {id:'economico',icon:'🚗',name:'Econômico 5L',seats:5,models:[
+    {id:'corolla',name:'Corolla LE',brand:'TOYOTA 2019',key:'2019 Toyota Corolla LE, silver metallic, clean compact sedan'},
+    {id:'cherokee',name:'Cherokee Latitude',brand:'JEEP 2017',key:'2017 Jeep Cherokee Latitude, white, compact crossover SUV'},
+    {id:'compass',name:'Compass Latitude',brand:'JEEP 2018',key:'2018 Jeep Compass Latitude, silver, compact SUV with modern squared design'},
+    {id:'sonata',name:'Sonata SE',brand:'HYUNDAI 2019',key:'2019 Hyundai Sonata SE, pearl white, mid-size sedan'},
+    {id:'outlander',name:'Outlander ES',brand:'MITSUBISHI 2017',key:'2017 Mitsubishi Outlander ES, white, compact crossover SUV with clean modern lines'},
+    {id:'gmc_acadia',name:'Acadia SLE-1',brand:'GMC 2017',key:'2017 GMC Acadia SLE-1, iridescent pearl, mid-size SUV with bold front grille'},
+    {id:'a5_sportback',name:'A5 Sportback',brand:'AUDI 2022',key:'2022 Audi A5 Sportback 45 TFSI S Line, glacier white metallic, sleek 5-door sportback with bold Singleframe grille'},
+  ]},
+  {id:'suv5',icon:'🚙',name:'SUV 5L',seats:5,models:[
+    {id:'equinox',name:'Equinox LT',brand:'CHEVROLET 2024',key:'2024 Chevrolet Equinox LT, white, compact SUV'},
+    {id:'escape',name:'Escape Active',brand:'FORD 2024',key:'2024 Ford Escape Active, blue metallic, compact crossover SUV'},
+    {id:'rogue',name:'Rogue S',brand:'NISSAN 2024',key:'2024 Nissan Rogue S, pearl white, compact SUV'},
+    {id:'vw_atlas',name:'Atlas SE',brand:'VW 2019',key:'2019 Volkswagen Atlas 2.0T SE, white silver metallic, 3-row SUV with bold front fascia'},
+    {id:'vw_tiguan',name:'Tiguan SEL',brand:'VW 2019',key:'2019 Volkswagen Tiguan SEL, pure white, sleek compact SUV with panoramic roof'},
+    {id:'terrain',name:'Terrain SLT',brand:'GMC 2019',key:'2019 GMC Terrain SLT, white frost tricoat, compact SUV with bold chrome grille'},
+    {id:'santa_fe',name:'Santa Fe',brand:'HYUNDAI 2026',key:'2026 Hyundai Santa Fe, serenity white pearl, mid-size SUV with distinctive cascading grille'},
+    {id:'xc40',name:'XC40 B5 Plus',brand:'VOLVO 2024',key:'2024 Volvo XC40 B5 Plus Dark Theme, crystal white pearl, premium compact SUV with Thor hammer headlights'},
+    {id:'bronco_sport',name:'Bronco Sport Big Bend',brand:'FORD 2024',key:'2024 Ford Bronco Sport Big Bend, oxford white, rugged compact SUV with square body and trail-ready design'},
+    {id:'sorento',name:'Sorento',brand:'KIA 2025',key:'2025 Kia Sorento, snow white pearl, mid-size SUV with sharp design and signature tiger-nose grille'},
+    {id:'explorer',name:'Explorer Active',brand:'FORD 2025',key:'2025 Ford Explorer Active, white platinum, mid-size SUV with bold front and athletic stance'},
+    {id:'sportage',name:'Sportage EX',brand:'KIA 2019',key:'2019 Kia Sportage EX, clear white, compact SUV with sleek roofline'},
+    {id:'tucson',name:'Tucson SE',brand:'HYUNDAI 2019',key:'2019 Hyundai Tucson SE, white, compact crossover SUV with clean modern styling'},
+    {id:'traverse',name:'Traverse LT',brand:'CHEVROLET 2021',key:'2021 Chevrolet Traverse LT, summit white, 3-row mid-size SUV with clean lines and bold front'},
+    {id:'journey',name:'Journey SE',brand:'DODGE 2020',key:'2020 Dodge Journey SE Value, white, affordable mid-size crossover SUV with Dodge muscle styling'},
+    {id:'edge',name:'Edge SE',brand:'FORD 2019',key:'2019 Ford Edge SE, white platinum, 2-row crossover SUV with aerodynamic coupe-like roofline'},
+    {id:'fpace',name:'F-Pace 25T Premium',brand:'JAGUAR 2018',key:'2018 Jaguar F-Pace 25T Premium, white, premium compact SUV with distinctive leaping cat badge and sculpted body'},
+    {id:'discovery_sport',name:'Discovery Sport',brand:'LAND ROVER 2017',key:'2017 Land Rover Discovery Sport, Fuji White, British premium compact SUV with floating roof and off-road capability'},
+  ]},
+  {id:'suv_luxo',icon:'💎',name:'SUV Luxo',seats:5,models:[
+    {id:'xc90',name:'XC90 B5 Plus',brand:'VOLVO 2024',key:'2024 Volvo XC90 B5 Plus Bright Theme, crystal white pearl, ultra-premium SUV with distinctive Thor hammer headlights'},
+    {id:'q7',name:'Q7 Quattro',brand:'AUDI 2022',key:'2022 Audi Q7 Quattro 45 TFSI, glacier white metallic, luxury SUV with bold Singleframe grille'},
+    {id:'glb',name:'GLB 250',brand:'MERCEDES 2025',key:'2025 Mercedes-Benz GLB 250, polar white, premium compact SUV with star grille'},
+    {id:'gls',name:'GLS-Class',brand:'MERCEDES 2025',key:'2025 Mercedes-Benz GLS-Class, designo diamond white bright, flagship luxury full-size SUV with commanding presence'},
+    {id:'stelvio',name:'Stelvio',brand:'ALFA ROMEO 2025',key:'2025 Alfa Romeo Stelvio, alfa white, Italian luxury compact SUV with aggressive front scudetto grille'},
+    {id:'cayenne',name:'Cayenne E-Hybrid',brand:'PORSCHE 2021',key:'2021 Porsche Cayenne E-Hybrid, white, premium luxury SUV with sport design package and iconic four-point headlights'},
+    {id:'grand_cherokee_l',name:'Grand Cherokee L',brand:'JEEP 2025',key:'2025 Jeep Grand Cherokee L, bright white, 3-row premium SUV with trail-ready stance and signature 7-slot grille'},
+    {id:'cadxt4',name:'XT4 Sport',brand:'CADILLAC 2025',key:'2025 Cadillac XT4 Sport, crystal white tricoat, premium compact SUV with bold angular Cadillac crest design'},
+    {id:'infiniti_qx60',name:'QX60 Luxe',brand:'INFINITI 2020',key:'2020 INFINITI QX60 Luxe, majestic white, premium 3-row SUV with elegant sculpted body'},
+    {id:'highlander',name:'Highlander XLE',brand:'TOYOTA 2022',key:'2022 Toyota Highlander XLE, wind chill pearl, 3-row family SUV with platinum grille and sophisticated design'},
+    {id:'telluride',name:'Telluride',brand:'KIA 2025',key:'2025 Kia Telluride, snow white pearl, premium 3-row SUV with upright boxy stance and LED signature lighting'},
+    {id:'buick_enclave',name:'Enclave Essence',brand:'BUICK 2024',key:'2024 Buick Enclave Essence, white frost tricoat, premium 3-row SUV with sleek coupe-like roofline'},
+    {id:'gmc_acadia_elev',name:'Acadia Elevation',brand:'GMC 2024',key:'2024 GMC Acadia Elevation, white frost tricoat, mid-size premium SUV with dark accents and bold grille'},
+    {id:'cadxt5',name:'XT5 Sport',brand:'CADILLAC 2023',key:'2023 Cadillac XT5 Sport, crystal white tricoat, premium mid-size SUV with vertical LED headlights and Cadillac crest'},
+    {id:'aviator',name:'Aviator',brand:'LINCOLN 2022',key:'2022 Lincoln Aviator, white platinum metallic tri-coat, luxury 3-row SUV with distinctive grille and elegant stance'},
+    {id:'infiniti_qx50',name:'QX50 Luxe',brand:'INFINITI 2024',key:'2024 INFINITI QX50 Luxe, majestic white, premium compact SUV with sculpted crescent-cut design'},
+    {id:'explorer_luxo',name:'Explorer Active',brand:'FORD 2025',key:'2025 Ford Explorer Active, white platinum, mid-size premium 3-row SUV with bold front grille and athletic proportions'},
+  ]},
+  {id:'suv_premium7',icon:'⬜',name:'SUV Premium 7L',seats:7,models:[
+    {id:'suburban7',name:'Suburban LT',brand:'CHEVROLET 2023',key:'2023 Chevrolet Suburban LT, iridescent pearl tricoat white, full-size premium SUV'},
+    {id:'navigator_prem7',name:'Navigator',brand:'LINCOLN 2019',key:'2019 Lincoln Navigator, white platinum, luxury 7-passenger full-size SUV with bold star grille'},
+  ]},
+  {id:'suv_premium8',icon:'🔲',name:'SUV Premium 8L',seats:8,models:[
+    {id:'suburban8',name:'Suburban LS',brand:'CHEVROLET 2023',key:'2023 Chevrolet Suburban LS, summit white, large family SUV'},
+    {id:'expedition',name:'Expedition Max XLT',brand:'FORD 2024',key:'2024 Ford Expedition Max XLT, white platinum, full-size SUV'},
+    {id:'yukon_xl',name:'Yukon XL SLT',brand:'GMC 2017',key:'2017 GMC Yukon XL SLT, white, large premium SUV with chrome grille and imposing presence'},
+  ]},
+  {id:'suv_elite7',icon:'🏅',name:'SUV Elite 7L',seats:7,models:[
+    {id:'navigator',name:'Navigator L Black Label',brand:'LINCOLN 2024',key:'2024 Lincoln Navigator L Black Label, midnight black gloss, ultra-luxury full-size SUV with illuminated star grille'},
+    {id:'navigator_reserve',name:'Navigator Reserve',brand:'LINCOLN 2023',key:'2023 Lincoln Navigator Reserve, white platinum, luxury full-size SUV with gleaming chrome details'},
+    {id:'expedition_max',name:'Expedition Max XLT',brand:'FORD 2024',key:'2024 Ford Expedition Max XLT, agate black, full-size premium SUV'},
+    {id:'wagoneer_l',name:'Wagoneer L',brand:'JEEP 2025',key:'2025 Jeep Wagoneer L, bright white, premium 3-row SUV with bold squared Wagoneer design and illuminated badge'},
+  ]},
+  {id:'suv_elite8',icon:'🥇',name:'SUV Elite 8L',seats:8,models:[
+    {id:'tahoe',name:'Tahoe LS',brand:'CHEVROLET 2023',key:'2023 Chevrolet Tahoe LS, summit white, full-size SUV'},
+    {id:'suburban_elite',name:'Suburban LT',brand:'CHEVROLET 2023',key:'2023 Chevrolet Suburban LT, iridescent pearl tricoat, large SUV'},
+    {id:'navigator_l_elite8',name:'Navigator L',brand:'LINCOLN 2024',key:'2024 Lincoln Navigator L, white platinum, ultra-luxury 8-passenger full-size SUV with illuminated star grille'},
+    {id:'expedition_max_elite8',name:'Expedition Max XLT',brand:'FORD 2024',key:'2024 Ford Expedition Max XLT, star white metallic, full-size premium 8-passenger SUV'},
+  ]},
+  {id:'escalade',icon:'🖤',name:'Cadillac Escalade',seats:7,models:[
+    {id:'escalade_sport',name:'Escalade Sport',brand:'CADILLAC 2023',key:'2023 Cadillac Escalade Sport, gloss black, ultra-luxury full-size SUV with bold angular design and chrome Cadillac crest'},
+    {id:'escalade_premium',name:'Escalade Premium Lux',brand:'CADILLAC 2023',key:'2023 Cadillac Escalade Premium Luxury Platinum, black raven, flagship luxury SUV'},
+  ]},
+  {id:'minivan7',icon:'🚐',name:'Minivan 7L',seats:7,models:[
+    {id:'pacifica7',name:'Pacifica Touring',brand:'CHRYSLER 2025',key:'2025 Chrysler Pacifica Touring, brilliant black crystal, family minivan with sliding doors'},
+    {id:'voyager',name:'Voyager LX',brand:'CHRYSLER 2023',key:'2023 Chrysler Voyager LX, white, practical family minivan with dual sliding doors and spacious interior'},
+    {id:'sienna',name:'Sienna XSE',brand:'TOYOTA 2023',key:'2023 Toyota Sienna XSE, wind chill pearl, sporty minivan'},
+  ]},
+  {id:'minivan8',icon:'🚌',name:'Minivan 8L',seats:8,models:[
+    {id:'pacifica8',name:'Pacifica Touring Plus',brand:'CHRYSLER 2022',key:'2022 Chrysler Pacifica Touring Plus, silver mist, 8-passenger minivan'},
+    {id:'carnival',name:'Carnival',brand:'KIA 2025',key:'2025 Kia Carnival, snow white pearl, modern 8-passenger minivan'},
+    {id:'sienna8',name:'Sienna LE 8L',brand:'TOYOTA 2021',key:'2021 Toyota Sienna LE 8-passenger, silver sky metallic, spacious family minivan with aerodynamic profile'},
+    {id:'odyssey',name:'Odyssey',brand:'HONDA 2026',key:'2026 Honda Odyssey, platinum white pearl, family minivan'},
+  ]},
+  {id:'compacto7',icon:'🔵',name:'Compacto Plus 7L',seats:7,models:[
+    {id:'pacifica_comp',name:'Pacifica Touring-L Plus',brand:'CHRYSLER 2017',key:'2017 Chrysler Pacifica Touring-L Plus, billet silver metallic, 7-seat compact van'},
+  ]},
+  {id:'van12',icon:'🚍',name:'Van 12L',seats:12,models:[
+    {id:'transit',name:'Transit 350 XLT',brand:'FORD 2021',key:'2021 Ford Transit 350 XLT, oxford white, full-size 12-passenger van'},
+  ]},
+  {id:'caminhonete',icon:'🛻',name:'Caminhonete',seats:5,models:[
+    {id:'ram_limited',name:'RAM 1500 Limited',brand:'RAM 2022',key:'2022 RAM 1500 Limited, black, full-size pickup truck with chrome RAM head badge and imposing wide-body stance'},
+    {id:'ram_laramie',name:'RAM 1500 Laramie',brand:'RAM 2022',key:'2022 RAM 1500 Laramie, granite crystal metallic, full-size pickup truck'},
+    {id:'ram_bighorn',name:'RAM 1500 Big Horn',brand:'RAM 2022',key:'2022 RAM 1500 Big Horn, pearl white, rugged full-size pickup truck with Big Horn badge'},
+    {id:'f150',name:'F-150 XLT',brand:'FORD 2024',key:'2024 Ford F-150 XLT, oxford white, iconic American full-size pickup truck with bold Power Stroke grille'},
+    {id:'ridgeline',name:'Ridgeline RTL',brand:'HONDA 2024',key:'2024 Honda Ridgeline RTL, platinum white pearl, unibody pickup truck with smooth SUV-like profile'},
+  ]},
+  {id:'mustang',icon:'🐎',name:'Mustang',seats:4,models:[
+    {id:'mustang_coupe',name:'Mustang EcoBoost',brand:'FORD 2024',key:'2024 Ford Mustang EcoBoost fastback coupe, shadow black, iconic muscle car with bold pony badge'},
+  ]},
+  {id:'sedan_ev',icon:'⚡',name:'Sedan Elétrico',seats:5,models:[
+    {id:'model3',name:'Model 3 Long Range',brand:'TESLA 2021',key:'2021 Tesla Model 3 Long Range, pearl white multi-coat, sleek all-electric sedan with flush door handles'},
+  ]},
+  {id:'suv_ev',icon:'🔋',name:'SUV Elétrico',seats:5,models:[
+    {id:'modely',name:'Model Y Performance',brand:'TESLA 2023',key:'2023 Tesla Model Y Performance, pearl white multi-coat, electric crossover SUV'},
+    {id:'mach_e',name:'Mustang Mach-E',brand:'FORD 2024',key:'2024 Ford Mustang Mach-E, star white metallic tri-coat, all-electric SUV with Mustang fastback-inspired design'},
+    {id:'polestar3',name:'Polestar 3',brand:'POLESTAR 2025',key:'2025 Polestar 3, snow, Scandinavian design electric SUV with sleek angular body and illuminated blade front'},
+  ]},
+  {id:'cybertruck',icon:'🔷',name:'Tesla Cybertruck',seats:5,models:[
+    {id:'cyber2025',name:'Cybertruck',brand:'TESLA 2025',key:'2025 Tesla Cybertruck, stainless steel angular exoskeleton body, futuristic brutalist electric truck with ultra-wide stance'},
+  ]},
 ];
 
 const SCENARIOS = {
-  tampa:[
-    {id:'riverwalk', city:'TAMPA', name:'Tampa Riverwalk', time:'Manhã — waterfront', key:'Tampa Riverwalk waterfront promenade along Hillsborough River, downtown Tampa skyline with Channelside district reflected on the water, clear warm Florida morning sky, palm trees lining the promenade'},
-    {id:'channelside', city:'TAMPA', name:'Channelside Bay Plaza', time:'Tarde', key:'Channelside Bay Plaza Tampa bay waterfront, modern mixed-use architecture with glass facades, bright Florida afternoon light, water visible in background'},
-    {id:'bayshore', city:'TAMPA', name:'Bayshore Boulevard', time:'Manhã — baía', key:'Bayshore Boulevard Tampa, Hillsborough Bay shimmering on the right, downtown Tampa skyline across the water, long straight open boulevard, warm golden morning light'},
-    {id:'busch_blvd', city:'TAMPA', name:'Busch Gardens Blvd', time:'Tarde', key:'Busch Gardens Boulevard Tampa, wide tropical-lined approach road, lush Florida landscaping, warm afternoon light, theme park entrance visible in background'},
-  ],
-  canaveral:[
-    {id:'port_canaveral', city:'PORT CANAVERAL', name:'Port Canaveral', time:'Manhã — porto', key:'Port Canaveral cruise ship terminal approach road, massive cruise ships docked prominently in background, Kennedy Space Center visible on the horizon, wide open flat Florida sky, bright coastal morning light'},
-    {id:'cocoa_a1a', city:'PORT CANAVERAL', name:'Cocoa Beach A1A', time:'Manhã costeira', key:'Cocoa Beach A1A beachfront boulevard, Atlantic Ocean surf visible through palm trees and surf shops, bright coastal morning light, Space Coast atmosphere'},
-    {id:'kennedy_space', city:'PORT CANAVERAL', name:'Kennedy Space Center', time:'Dia — Space Coast', key:'Kennedy Space Center Visitor Complex approach road on the Space Coast, NASA launch pads and VAB building visible on the horizon, vast flat Florida landscape, dramatic open sky'},
-  ],
   miami:[
-    {id:'ocean_sunset', name:'Ocean Drive', time:'Pôr do sol', key:'Ocean Drive Miami Beach, Art Deco pastel buildings and palm trees lining the boulevard, golden hour warm sunset light, open-air cafes visible in soft background'},
-    {id:'hardrock', name:'Hard Rock Stadium', time:'Dia ensolarado', key:'NW 199th Street Miami Gardens approaching Hard Rock Stadium, stadium roof canopy and towering lights visible against vivid blue Florida sky, open highway stretch'},
-    {id:'brickell', name:'Brickell Avenue', time:'Dia — urbano', key:'Brickell Avenue Miami financial district, glass skyscraper canyon reflecting sunlight, polished urban boulevard, modern architecture backdrop'},
-    {id:'miami_port', name:'Port of Miami', time:'Manhã — waterfront', key:'Biscayne Boulevard near Port of Miami, Biscayne Bay blue water visible, downtown Miami skyline in background, tropical morning light'},
-    {id:'south_beach', name:'South Beach Collins Ave', time:'Tarde', key:'Collins Avenue South Beach Miami, luxury hotel facades, manicured palm trees, warm afternoon Florida sun casting long shadows'},
+    {id:'ocean_sunset',name:'Ocean Drive',time:'Pôr do sol',key:'Ocean Drive Miami Beach, Art Deco pastel buildings and palm trees lining the boulevard, golden hour warm sunset light, open-air cafes visible in soft background'},
+    {id:'hardrock',name:'Hard Rock Stadium',time:'Dia ensolarado',key:'NW 199th Street Miami Gardens approaching Hard Rock Stadium, stadium roof canopy and towering lights visible against vivid blue Florida sky, open highway stretch'},
+    {id:'brickell',name:'Brickell Avenue',time:'Dia — urbano',key:'Brickell Avenue Miami financial district, glass skyscraper canyon reflecting sunlight, polished urban boulevard, modern architecture backdrop'},
+    {id:'miami_port',name:'Port of Miami',time:'Manhã — waterfront',key:'Biscayne Boulevard near Port of Miami, Biscayne Bay blue water visible, downtown Miami skyline in background, tropical morning light'},
+    {id:'south_beach',name:'South Beach Collins Ave',time:'Tarde',key:'Collins Avenue South Beach Miami, luxury hotel facades, manicured palm trees, warm afternoon Florida sun casting long shadows'},
   ],
   orlando:[
-    {id:'idrive_night', name:'International Drive', time:'Noite — neon', key:'International Drive Orlando entertainment district at night, vivid neon signs and colorful marquees, wet asphalt reflecting electric light streaks, palm tree silhouettes against glowing sky'},
-    {id:'idrive_day', name:'International Drive', time:'Manhã ensolarada', key:'International Drive Orlando on a bright sunny morning, entertainment district with hotel strip, low golden morning sun, long shadows on clean asphalt, palm trees lit from behind'},
-    {id:'disney_entrance', name:'Walt Disney World', time:'Dia', key:'Walt Disney World resort entrance boulevard Orlando, lush tropical landscaping, iconic park signage and arches, bright Florida sunshine, immaculate road'},
-    {id:'universal', name:'Universal Boulevard', time:'Tarde', key:'Universal Boulevard Orlando near Universal Studios entrance, wide palm-lined road, resort atmosphere, warm afternoon Florida light, theme park architecture visible'},
-    {id:'convention', name:'Orange County Conv.', time:'Dia — moderno', key:'Orange County Convention Center boulevard Orlando, sleek modern architecture, wide open plaza, bright midday Florida sun, manicured grounds'},
+    {id:'idrive_night',name:'International Drive',time:'Noite — neon',key:'International Drive Orlando entertainment district at night, vivid neon signs and colorful marquees, wet asphalt reflecting electric light streaks, palm tree silhouettes against glowing sky'},
+    {id:'idrive_day',name:'International Drive',time:'Manhã ensolarada',key:'International Drive Orlando on a bright sunny morning, entertainment district with hotel strip, low golden morning sun, long shadows on clean asphalt, palm trees lit from behind'},
+    {id:'disney_entrance',name:'Walt Disney World',time:'Dia',key:'Walt Disney World resort entrance boulevard Orlando, lush tropical landscaping, iconic park signage and arches, bright Florida sunshine, immaculate road'},
+    {id:'universal',name:'Universal Boulevard',time:'Tarde',key:'Universal Boulevard Orlando near Universal Studios entrance, wide palm-lined road, resort atmosphere, warm afternoon Florida light, theme park architecture visible'},
+    {id:'convention',name:'Orange County Conv.',time:'Dia — moderno',key:'Orange County Convention Center boulevard Orlando, sleek modern architecture, wide open plaza, bright midday Florida sun, manicured grounds'},
   ],
   fortlauderdale:[
-    {id:'a1a_morning', name:'Beach Blvd A1A', time:'Manhã — orla', key:'Fort Lauderdale Beach Boulevard A1A, Atlantic Ocean visible on the right, luxury hotel strip on the left, early morning golden coastal light, wide straight road'},
-    {id:'las_olas', name:'Las Olas Boulevard', time:'Tarde', key:'Las Olas Boulevard Fort Lauderdale, upscale boutiques and restaurants, mature tropical trees lining the avenue, warm afternoon dappled light'},
-    {id:'port_ev', name:'Port Everglades', time:'Manhã', key:'Port Everglades approach road Fort Lauderdale, Intracoastal Waterway visible, large cruise ships docked in background, clear morning Florida sky'},
-    {id:'sunrise', name:'Sunrise Boulevard', time:'Pôr do sol', key:'Sunrise Boulevard Fort Lauderdale, wide commercial boulevard, vivid Florida sunset sky in orange and magenta, long dramatic shadows across the road'},
+    {id:'a1a_morning',name:'Beach Blvd A1A',time:'Manhã — orla',key:'Fort Lauderdale Beach Boulevard A1A, Atlantic Ocean visible on the right, luxury hotel strip on the left, early morning golden coastal light, wide straight road'},
+    {id:'las_olas',name:'Las Olas Boulevard',time:'Tarde',key:'Las Olas Boulevard Fort Lauderdale, upscale boutiques and restaurants, mature tropical trees lining the avenue, warm afternoon dappled light'},
+    {id:'port_ev',name:'Port Everglades',time:'Manhã',key:'Port Everglades approach road Fort Lauderdale, Intracoastal Waterway visible, large cruise ships docked in background, clear morning Florida sky'},
+    {id:'sunrise',name:'Sunrise Boulevard',time:'Pôr do sol',key:'Sunrise Boulevard Fort Lauderdale, wide commercial boulevard, vivid Florida sunset sky in orange and magenta, long dramatic shadows across the road'},
+  ],
+  tampa:[
+    {id:'tampa_riverwalk',name:'Tampa Riverwalk',time:'Tarde',key:'Tampa Riverwalk waterfront promenade along Hillsborough River, downtown Tampa skyline with glass towers reflecting the water, Channelside district visible, warm afternoon Florida light'},
+    {id:'channelside',name:'Channelside Bay',time:'Pôr do sol',key:'Channelside Bay Plaza Tampa, waterfront entertainment district, Hillsborough Bay shimmering in golden hour sunset, modern mixed-use architecture with palm trees'},
+    {id:'port_canaveral',name:'Port Canaveral',time:'Manhã',key:'Port Canaveral cruise terminal approach road, massive cruise ships docked at the port, Kennedy Space Center launchpads faintly visible on the horizon, wide open Florida morning sky'},
+    {id:'cocoa_beach',name:'Cocoa Beach A1A',time:'Manhã — litoral',key:'State Road A1A Cocoa Beach, Atlantic Ocean shoreline visible on the right, surf shops and low-rise buildings, tall swaying palm trees, bright tropical morning coastal light'},
   ],
 };
 
 const AGE_GROUPS = [
-  {id:'kids', label:'Crianças', range:'2 a 10 anos', key:'Brazilian children aged 2 to 10 years old, happy playful energy, casual colorful clothing'},
-  {id:'teens', label:'Adolescentes', range:'11 a 16 anos', key:'Brazilian teenagers aged 11 to 16, casual modern streetwear, energetic relaxed attitude'},
-  {id:'adults', label:'Adultos', range:'20 a 45 anos', key:'Brazilian adults aged 20 to 45, diverse warm Latin features, natural tan skin tones with warm undertones, dark expressive eyes, dark hair'},
+  {id:'kids',label:'Crianças',range:'2 a 10 anos',key:'Brazilian children aged 2 to 10 years old, happy playful energy, casual colorful clothing'},
+  {id:'teens',label:'Adolescentes',range:'11 a 16 anos',key:'Brazilian teenagers aged 11 to 16, casual modern streetwear, energetic relaxed attitude'},
+  {id:'adults',label:'Adultos',range:'20 a 45 anos',key:'Brazilian adults aged 20 to 45, diverse warm Latin features, natural tan skin tones with warm undertones, dark expressive eyes, dark hair'},
 ];
 
 const PROFILES = ['Família em férias','Casal','Grupo de amigos','Executivo','Turistas'];
 
 const OPTIONS = {
-  formato: {label:'Formato', items:['9:16','4:5','16:9','1:1']},
-  tom: {label:'Tom', items:['Cinematic','Premium/Luxo','Lifestyle','Família','Dramático']},
-  angulo: {label:'Ângulo de câmera', items:['Lateral','Frontal','¾ traseiro','Aéreo','Close interior']},
-  acao: {label:'Ação', items:['Em movimento','Chegando','Saindo do carro','Apoiado no carro','Entrando no carro']},
+  formato:{label:'Formato',items:['9:16','4:5','16:9','1:1']},
+  tom:{label:'Tom',items:['Cinematic','Premium/Luxo','Lifestyle','Família','Dramático']},
+  angulo:{label:'Ângulo de câmera',items:['Lateral','Frontal','¾ traseiro','Aéreo','Close interior']},
+  acao:{label:'Ação',items:['Em movimento','Chegando','Saindo do carro','Apoiado no carro','Entrando no carro']},
 };
 
 /* ============================================================
    STATE
 ============================================================ */
 let S = {
-  catId:null, modelId:null,
-  scenarioId:null,
-  charCount:1, ageId:'adults', profileId:'Família em férias',
-  formato:'9:16', tom:'Cinematic', angulo:'Lateral', acao:'Em movimento',
+  catId:null,modelId:null,scenarioId:null,
+  charCount:1,ageIds:['adults'],profileId:'Família em férias',
+  formato:'9:16',tom:'Cinematic',angulo:'Lateral',acao:'Em movimento',
 };
 
 /* ============================================================
@@ -565,15 +615,13 @@ function renderCats(){
       <div class="cat-header" onclick="toggleCat('${c.id}')">
         <span class="cat-icon">${c.icon}</span>
         <span class="cat-name">${c.name}</span>
-        
         <span class="cat-arrow">›</span>
       </div>
       <div class="cat-models">
         <div class="model-grid">
           ${c.models.map(m=>`
             <button class="model-btn ${S.modelId===m.id?'selected':''}" onclick="selectModel('${c.id}','${m.id}')">
-              <span class="model-brand">${m.brand}</span>
-              ${m.name}
+              <span class="model-brand">${m.brand}</span>${m.name}
             </button>
           `).join('')}
         </div>
@@ -583,20 +631,20 @@ function renderCats(){
 }
 
 function toggleCat(id){
-  const el = document.getElementById('cat-'+id);
-  const wasOpen = el.classList.contains('open');
+  const el=document.getElementById('cat-'+id);
+  const wasOpen=el.classList.contains('open');
   document.querySelectorAll('.cat-item.open').forEach(e=>e.classList.remove('open'));
   if(!wasOpen) el.classList.add('open');
 }
 
-function selectModel(catId, modelId){
-  S.catId=catId; S.modelId=modelId;
-  renderCats(); updateSummary(); updateGenBtn();
+function selectModel(catId,modelId){
+  S.catId=catId;S.modelId=modelId;
+  renderCats();updateSummary();updateGenBtn();
   switchTab('scenarios');
 }
 
 function renderScenarios(){
-  const cities = {miami:'🌴 Miami',orlando:'🎢 Orlando',fortlauderdale:'⛵ Fort Lauderdale'};
+  const cities={miami:'🌴 Miami',orlando:'🎢 Orlando',fortlauderdale:'⛵ Fort Lauderdale',tampa:'🚀 Tampa & Canaveral'};
   document.getElementById('scenarioList').innerHTML = Object.entries(SCENARIOS).map(([city,scs])=>`
     <div class="city-section">
       <div class="city-label">${cities[city]}</div>
@@ -614,40 +662,47 @@ function renderScenarios(){
 
 function selectScenario(id){
   S.scenarioId=id;
-  renderScenarios(); updateSummary(); updateGenBtn();
+  renderScenarios();updateSummary();updateGenBtn();
   switchTab('characters');
 }
 
 function renderCharacters(){
-  // count buttons 1-8
-  document.getElementById('countRow').innerHTML = [
-    {v:0,l:'0',sub:'Só o carro'},
-    ...Array.from({length:8},(_,i)=>({v:i+1,l:String(i+1),sub:''}))
-  ].map(o=>`
-    <button class="count-btn ${S.charCount===o.v?'selected':''}" onclick="selectCount(${o.v})" title="${o.sub}">
-      ${o.l}${o.sub?`<span style="display:block;font-size:8px;opacity:.7;line-height:1;">${o.sub}</span>`:''}
+  // count: 0 = só o carro, 1-8 = pessoas
+  const counts = [{v:0,label:'0',sub:'só carro'},...Array.from({length:8},(_,i)=>({v:i+1,label:String(i+1),sub:''}))];
+  document.getElementById('countRow').innerHTML = counts.map(c=>`
+    <button class="count-btn ${S.charCount===c.v?'selected':''}" onclick="selectCount(${c.v})">
+      ${c.label}${c.sub?`<span class="cb-sub">${c.sub}</span>`:''}
     </button>
   `).join('');
-  // mostrar/ocultar bloco etária e perfil
-  const hasPpl = S.charCount > 0;
-  document.getElementById('ageBlock').style.display = hasPpl ? '' : 'none';
-  document.getElementById('profileBlock').style.display = hasPpl ? '' : 'none';
-  // age
+
+  const showPeople = S.charCount > 0;
+  document.getElementById('ageSection').style.display = showPeople?'':'none';
+  document.getElementById('profileSection').style.display = showPeople?'':'none';
+
+  // Multi-select checkboxes for age
   document.getElementById('ageGrid').innerHTML = AGE_GROUPS.map(a=>`
-    <button class="age-btn ${S.ageId===a.id?'selected':''}" onclick="selectAge('${a.id}')">
-      <span class="age-label">${a.label}</span>
-      <span class="age-sub">${a.range}</span>
-    </button>
+    <label class="age-btn ${S.ageIds.includes(a.id)?'selected':''}" onclick="toggleAge('${a.id}');event.preventDefault();">
+      <input type="checkbox" style="accent-color:var(--accent);margin-right:8px;" ${S.ageIds.includes(a.id)?'checked':''} onchange="toggleAge('${a.id}')">
+      <span>
+        <span class="age-label">${a.label}</span>
+        <span class="age-sub">${a.range}</span>
+      </span>
+    </label>
   `).join('');
-  // profile
+
   document.getElementById('profileRow').innerHTML = PROFILES.map(p=>`
     <button class="opt-chip ${S.profileId===p?'selected':''}" onclick="selectProfile('${p}')">${p}</button>
   `).join('');
 }
 
-function selectCount(n){ S.charCount=n; renderCharacters(); updateSummary(); }
-function selectAge(id){ S.ageId=id; renderCharacters(); }
-function selectProfile(p){ S.profileId=p; renderCharacters(); }
+function selectCount(n){S.charCount=n;renderCharacters();updateSummary();}
+function toggleAge(id){
+  const idx=S.ageIds.indexOf(id);
+  if(idx>=0) S.ageIds.splice(idx,1); else S.ageIds.push(id);
+  if(S.ageIds.length===0) S.ageIds=['adults']; // always keep at least one
+  renderCharacters();
+}
+function selectProfile(p){S.profileId=p;renderCharacters();}
 
 function renderOptions(){
   document.getElementById('optionsList').innerHTML = Object.entries(OPTIONS).map(([key,opt])=>`
@@ -662,7 +717,7 @@ function renderOptions(){
   `).join('');
 }
 
-function selectOpt(key,val){ S[key]=val; renderOptions(); }
+function selectOpt(key,val){S[key]=val;renderOptions();}
 
 /* ============================================================
    TABS
@@ -672,280 +727,185 @@ function switchTab(name){
   document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
   document.getElementById('tab-'+name).classList.add('active');
   document.getElementById('tb-'+name).classList.add('active');
-  const map={cars:'ps1',scenarios:'ps2',characters:'ps3',options:'ps4'};
-  document.querySelectorAll('.prog-step').forEach(p=>p.classList.remove('active'));
-  if(map[name]) document.getElementById(map[name]).classList.add('active');
 }
 
 /* ============================================================
    SUMMARY + GEN BUTTON
 ============================================================ */
 function updateSummary(){
-  const car = S.modelId ? findModel(S.modelId) : null;
-  const sc = S.scenarioId ? findScenario(S.scenarioId) : null;
-
-  const sp1 = document.getElementById('sp-car');
-  const sp2 = document.getElementById('sp-sc');
-  const sp3 = document.getElementById('sp-ppl');
-
-  sp1.textContent = car ? car.name : '— categoria';
-  sp1.className = 'sel-pill' + (car?' filled':'');
-  sp2.textContent = sc ? sc.name : '— cenário';
-  sp2.className = 'sel-pill' + (sc?' filled':'');
-  sp3.textContent = S.charCount + (S.charCount>1?' pessoas':' pessoa') + ' · ' + (AGE_GROUPS.find(a=>a.id===S.ageId)?.label||'');
-  sp3.className = 'sel-pill filled';
-
-  // progress dots
-  const steps=['ps1','ps2','ps3','ps4'];
-  steps.forEach(s=>{ const el=document.getElementById(s); el.classList.remove('done'); });
-  if(S.modelId) document.getElementById('ps1').classList.add('done');
-  if(S.scenarioId) document.getElementById('ps2').classList.add('done');
+  const car=S.modelId?findModel(S.modelId):null;
+  const sc=S.scenarioId?findScenario(S.scenarioId):null;
+  const sp1=document.getElementById('sp-car');
+  const sp2=document.getElementById('sp-sc');
+  const sp3=document.getElementById('sp-ppl');
+  sp1.textContent=car?car.name:'— categoria';
+  sp1.className='sel-pill'+(car?' filled':'');
+  sp2.textContent=sc?sc.name:'— cenário';
+  sp2.className='sel-pill'+(sc?' filled':'');
+  sp3.textContent=S.charCount===0?'só o carro':S.charCount+(S.charCount>1?' pessoas':' pessoa')+' · '+S.ageIds.map(id=>AGE_GROUPS.find(a=>a.id===id)?.label||'').filter(Boolean).join('+');
+  sp3.className='sel-pill filled';
+  // Progress dots removed (sidebar nav)
 }
 
 function updateGenBtn(){
-  const btn = document.getElementById('genBtn');
-  const status = document.getElementById('genStatus');
-  const ready = S.modelId && S.scenarioId;
-  btn.disabled = !ready;
+  const btn=document.getElementById('genBtn');
+  const status=document.getElementById('genStatus');
+  const ready=S.modelId&&S.scenarioId;
+  btn.disabled=!ready;
   if(ready){
-    const car = findModel(S.modelId);
-    const sc = findScenario(S.scenarioId);
-    status.innerHTML = `<span class="status-ok">✓ ${car.name}<br>${sc.name}</span>`;
+    const car=findModel(S.modelId);const sc=findScenario(S.scenarioId);
+    status.innerHTML=`<span class="status-ok">✓ ${car.name}<br>${sc.name}</span>`;
   } else if(S.modelId){
-    status.innerHTML = 'Selecione<br>um cenário';
+    status.innerHTML='Selecione<br>um cenário';
   } else {
-    status.innerHTML = 'Selecione categoria<br>+ cenário';
+    status.innerHTML='Selecione categoria<br>+ cenário';
   }
 }
 
 function findModel(id){
-  for(const cat of CATEGORIES){ const m=cat.models.find(m=>m.id===id); if(m) return m; }
-  return null;
+  for(const cat of CATEGORIES){const m=cat.models.find(m=>m.id===id);if(m)return m;}return null;
 }
 function findScenario(id){
-  for(const city of Object.values(SCENARIOS)){ const s=city.find(s=>s.id===id); if(s) return s; }
-  return null;
+  for(const city of Object.values(SCENARIOS)){const s=city.find(s=>s.id===id);if(s)return s;}return null;
 }
 function findCatByModel(modelId){
   return CATEGORIES.find(c=>c.models.some(m=>m.id===modelId));
 }
 
 /* ============================================================
+   REFERENCE HELPERS
+============================================================ */
+function getRefUsed(){
+  const labels={rc1:'horário do dia',rc2:'qualidade da luz',rc3:'clima e céu',rc4:'tom de cor geral',rc5:'ângulo de câmera',rc6:'profundidade de campo (bokeh)',rc7:'enquadramento e proporção',rc8:'tipo de localização',rc9:'elementos de fundo',rc10:'estilo arquitetônico',rc11:'estilo de roupa dos personagens',rc12:'expressão e pose dos personagens'};
+  return Object.entries(labels).filter(([id])=>document.getElementById(id)?.checked).map(([,v])=>v);
+}
+function getRefIgnored(){
+  const labels={ri1:'car brand and model',ri2:'people identity and faces',ri3:'visible text logos and signs',ri4:'vehicle color'};
+  return Object.entries(labels).filter(([id])=>document.getElementById(id)?.checked).map(([,v])=>v);
+}
+
+function handleRefFile(file){
+  if(!file)return;
+  const reader=new FileReader();
+  reader.onload=e=>{showRefPreview(e.target.result);};
+  reader.readAsDataURL(file);
+}
+
+function showRefPreview(src){
+  const drop=document.getElementById('refDrop');
+  drop.innerHTML=`<img class="ref-img-preview" src="${src}" alt="referência"><button class="ref-remove" onclick="clearRef(event)">Remover imagem</button>`;
+  document.getElementById('refChecks').style.display='block';
+}
+
+function clearRef(e){
+  if(e)e.stopPropagation();
+  document.getElementById('refDrop').innerHTML=`<span class="ref-drop-icon">🖼</span><div class="ref-drop-label">Cole (Ctrl+V) ou arraste uma imagem<br><small style="opacity:.6">ou clique para selecionar</small></div>`;
+  document.getElementById('refChecks').style.display='none';
+  document.querySelectorAll('#tab-reference input[type=checkbox]').forEach(cb=>cb.checked=false);
+}
+
+// Paste and drag-drop
+document.addEventListener('paste',e=>{
+  const items=e.clipboardData?.items;
+  if(!items)return;
+  for(const item of items){
+    if(item.type.startsWith('image/')){
+      const file=item.getAsFile();
+      if(file)handleRefFile(file);
+      break;
+    }
+  }
+});
+document.getElementById('refDrop').addEventListener('dragover',e=>{e.preventDefault();e.currentTarget.classList.add('dragover');});
+document.getElementById('refDrop').addEventListener('dragleave',e=>{e.currentTarget.classList.remove('dragover');});
+document.getElementById('refDrop').addEventListener('drop',e=>{
+  e.preventDefault();e.currentTarget.classList.remove('dragover');
+  const file=e.dataTransfer?.files[0];
+  if(file&&file.type.startsWith('image/'))handleRefFile(file);
+});
+
+/* ============================================================
    PROMPT GENERATION
 ============================================================ */
 function buildPrompt(){
-  const car = findModel(S.modelId);
-  const sc = findScenario(S.scenarioId);
-  const age = AGE_GROUPS.find(a=>a.id===S.ageId);
-  const cat = findCatByModel(S.modelId);
+  const car=findModel(S.modelId);
+  const sc=findScenario(S.scenarioId);
+  const age=AGE_GROUPS.find(a=>a.id===(S.ageIds[0]||'adults'));
 
-  const lensMap = {
-    '9:16':'Sony A7R V with 35mm f/1.8 lens',
-    '4:5':'Canon EOS R5 with 50mm f/1.4 lens',
-    '16:9':'Canon EOS R5 with 24mm f/2.8 lens',
-    '1:1':'Sony A7R V with 85mm f/1.4 lens',
-  };
-  const lens = lensMap[S.formato] || lensMap['9:16'];
+  const lensMap={'9:16':'Sony A7R V with 35mm f/1.8 lens','4:5':'Canon EOS R5 with 50mm f/1.4 lens','16:9':'Canon EOS R5 with 24mm f/2.8 lens','1:1':'Sony A7R V with 85mm f/1.4 lens'};
+  const lens=lensMap[S.formato]||lensMap['9:16'];
 
-  const toneMap = {
-    'Cinematic':'dramatic cinematic commercial photography, deep contrast, moody layered atmosphere',
-    'Premium/Luxo':'refined luxury editorial photography, clean elegant composition, premium brand aesthetic',
-    'Lifestyle':'vibrant lifestyle photography, energetic aspirational mood, warm inviting tones',
-    'Família':'warm joyful family lifestyle photography, bright welcoming atmosphere, genuine candid emotion',
-    'Dramático':'bold high-contrast dramatic photography, cinematic tension, powerful visual storytelling',
-  };
-  const toneDesc = toneMap[S.tom] || toneMap['Cinematic'];
+  const toneMap={'Cinematic':'dramatic cinematic commercial photography, deep contrast, moody layered atmosphere','Premium/Luxo':'refined luxury editorial photography, clean elegant composition, premium brand aesthetic','Lifestyle':'vibrant lifestyle photography, energetic aspirational mood, warm inviting tones','Família':'warm joyful family lifestyle photography, bright welcoming atmosphere, genuine candid emotion','Dramático':'bold high-contrast dramatic photography, cinematic tension, powerful visual storytelling'};
+  const toneDesc=toneMap[S.tom]||toneMap['Cinematic'];
 
-  const angleMap = {
-    'Lateral':'low diagonal tracking angle at near-asphalt level, car shot from driver-side rear quarter, dynamic panning with motion blur on background',
-    'Frontal':'dramatic low front angle camera nearly at ground level, vehicle coming head-on with forced perspective',
-    '¾ traseiro':'classic three-quarter rear angle, low slightly elevated, dynamic stance reveal showing full rear body',
-    'Aéreo':'elevated aerial three-quarter view looking down, wide environment context visible around the vehicle',
-    'Close interior':'interior cabin shot through open window or door, dashboard and seating detail with exterior environment visible',
-  };
-  const angleDesc = angleMap[S.angulo] || angleMap['Lateral'];
+  const angleMap={'Lateral':'low diagonal tracking angle at near-asphalt level, car shot from driver-side rear quarter, dynamic panning with motion blur on background','Frontal':'dramatic low front angle camera nearly at ground level, vehicle coming head-on with forced perspective','¾ traseiro':'classic three-quarter rear angle, low slightly elevated, dynamic stance reveal showing full rear body','Aéreo':'elevated aerial three-quarter view looking down, wide environment context visible around the vehicle','Close interior':'interior cabin shot through open window or door, dashboard and seating detail with exterior environment visible'};
+  const angleDesc=angleMap[S.angulo]||angleMap['Lateral'];
 
-  const actionMap = {
-    'Em movimento':'moving at speed along the road, dynamic motion blur on background, wheels sharp',
-    'Chegando':'arriving and slowing down, brake lights glowing subtly, purposeful controlled deceleration',
-    'Saindo do carro':'characters stepping out of the vehicle, doors open, emerging into the scene',
-    'Apoiado no carro':'characters relaxed leaning against the vehicle, casual confident poses, parked in the scene',
-    'Entrando no carro':'characters boarding the vehicle, doors open, excited energy of departure',
-  };
-  const actionDesc = actionMap[S.acao] || actionMap['Em movimento'];
+  const actionMap={'Em movimento':'moving at speed along the road, dynamic motion blur on background, wheels sharp','Chegando':'arriving and slowing down, brake lights glowing subtly, purposeful controlled deceleration','Saindo do carro':'characters stepping out of the vehicle, doors open, emerging into the scene','Apoiado no carro':'characters relaxed leaning against the vehicle, casual confident poses, parked in the scene','Entrando no carro':'characters boarding the vehicle, doors open, excited energy of departure'};
+  const actionDesc=actionMap[S.acao]||actionMap['Em movimento'];
 
-  // CHARACTER DESCRIPTION
-  const charCountDesc = S.charCount === 1 ? 'one person' :
-    S.charCount === 2 ? 'two people' :
-    S.charCount <= 4 ? `${['three','four'][S.charCount-3]} people` :
-    `a group of ${S.charCount} people`;
+  let charBlock='';
+  if(S.charCount>0){
+    const charCountDesc=S.charCount===1?'one person':S.charCount===2?'two people':S.charCount<=4?['three','four'][S.charCount-3]+' people':`a group of ${S.charCount} people`;
+    const profileMap={'Família em férias':'on a Florida family vacation, wearing comfortable casual summer clothes, bright and joyful expressions','Casal':'romantic couple on a Florida getaway, stylish casual outfits, happy and relaxed','Grupo de amigos':'group of friends on a Florida trip, wearing casual summer attire, laughing and energetic','Executivo':'business professional in smart casual or executive attire, confident composed expression','Turistas':'tourists excited about their Florida adventure, comfortable travel outfits, cameras and sunglasses'};
+    const profileDesc=profileMap[S.profileId]||profileMap['Família em férias'];
+    const selectedAges=AGE_GROUPS.filter(a=>S.ageIds.includes(a.id));
+    const ageDesc=selectedAges.length===1?selectedAges[0].key:selectedAges.map(a=>a.key).join(' and ');
+    charBlock=`${charCountDesc} — ${ageDesc}, ${profileDesc}, natural warm Brazilian features with rich brown skin tones, dark expressive eyes, genuine authentic expressions —`;
+  }
 
-  const ageDesc = age.key;
+  // Reference block
+  const refUsed=getRefUsed();
+  const refBlock=refUsed.length>0?` — [visual reference: ${refUsed.join(', ')}]`:'';
 
-  const profileMap = {
-    'Família em férias':'on a Florida family vacation, wearing comfortable casual summer clothes, bright and joyful expressions',
-    'Casal':'romantic couple on a Florida getaway, stylish casual outfits, happy and relaxed',
-    'Grupo de amigos':'group of friends on a Florida trip, wearing casual summer attire, laughing and energetic',
-    'Executivo':'business professional in smart casual or executive attire, confident composed expression',
-    'Turistas':'tourists excited about their Florida adventure, comfortable travel outfits, cameras and sunglasses',
-  };
-  const profileDesc = profileMap[S.profileId] || profileMap['Família em férias'];
+  // Flux quality additions
+  const fluxBase=' — perfect wheel geometry, undistorted body panels, photographic accuracy';
+  const fluxSkin=S.charCount>0?' — subsurface scattering on skin, pore-level skin texture, photojournalism realism':'';
 
-  const charBlock = S.charCount === 0 ? '' :
-    `${charCountDesc} of Brazilian people — ${ageDesc}, ${profileDesc}, natural warm Latin features, rich brown skin tones with warm undertones, dark expressive eyes, genuine authentic expressions —`;
-
-  const fluxSuffix = S.charCount > 0
-    ? '— perfect wheel geometry, undistorted body panels, photographic accuracy — subsurface scattering on skin, pore-level skin texture'
-    : '— perfect wheel geometry, undistorted body panels, photographic accuracy, razor-sharp metallic reflections';
-  return `${toneDesc.charAt(0).toUpperCase()+toneDesc.slice(1)}, ${angleDesc}, ${lens} — ${charBlock} ${car.key} — ${actionDesc} along ${sc.key} — natural ${sc.time.toLowerCase()} light raking across the vehicle body, creating sharp specular highlights on chrome details and deep reflections across the paint surface — crisp background bokeh preserving environmental context without distraction — hyper-realistic commercial photography, natural skin texture, crisp metallic paint detail ${fluxSuffix}.`;
+  return `${toneDesc.charAt(0).toUpperCase()+toneDesc.slice(1)}, ${angleDesc}, ${lens} — ${charBlock} ${car.key} — ${actionDesc} along ${sc.key} — natural ${sc.time.toLowerCase()} light raking across the vehicle body, creating sharp specular highlights on chrome details and deep reflections across the paint surface — crisp background bokeh preserving environmental context without distraction — hyper-realistic commercial photography, natural skin texture, crisp metallic paint detail${fluxBase}${fluxSkin}${refBlock}.`;
 }
 
 function buildNeg(){
-  const base = 'cartoon, CGI, 3D render, illustration, overexposed, distorted proportions, missing wheels, unrealistic skin, plastic look, stock photo look, fake smile, lens distortion artifacts, merged fingers, floating limbs';
-  const nightScenes = ['idrive_night'];
-  if(S.scenarioId && nightScenes.includes(S.scenarioId)) return base+', daytime, bright sky, flat lighting, no reflections';
-  return base+', nighttime, overcast sky, flat unnatural lighting';
-}
-
-// HISTÓRICO
-let history = [];
-try { history = JSON.parse(localStorage.getItem('georgia_history')||'[]'); } catch(e){}
-
-function saveToHistory(prompt, meta){
-  const entry = {
-    id: Date.now(),
-    date: new Date().toLocaleString('pt-BR'),
-    car: meta.car,
-    scenario: meta.scenario,
-    pessoas: meta.pessoas,
-    formato: meta.formato,
-    prompt: prompt
-  };
-  history.unshift(entry);
-  if(history.length > 50) history = history.slice(0,50);
-  try { localStorage.setItem('georgia_history', JSON.stringify(history)); } catch(e){}
-  updateHistCount();
-}
-
-function updateHistCount(){
-  const badge = document.getElementById('histCount');
-  if(!badge) return;
-  if(history.length > 0){
-    badge.textContent = history.length;
-    badge.style.display = 'inline';
-  } else {
-    badge.style.display = 'none';
-  }
-}
-
-function openHistory(){
-  renderHistPanel();
-  document.getElementById('histOverlay').classList.add('open');
-  document.getElementById('histPanel').classList.add('open');
-}
-
-function closeHistory(){
-  document.getElementById('histOverlay').classList.remove('open');
-  document.getElementById('histPanel').classList.remove('open');
-}
-
-function renderHistPanel(){
-  const body = document.getElementById('histBody');
-  if(!history.length){
-    body.innerHTML = '<div class="hist-empty">Nenhum prompt gerado ainda.</div>';
-    return;
-  }
-  body.innerHTML = history.slice(0,10).map((h,i)=>`
-    <div class="hist-item">
-      <div class="hist-item-top">
-        <span class="hist-car">${h.car}</span>
-        <div style="display:flex;align-items:center;gap:6px;">
-          <button class="hist-copy" onclick="copyHistItem(${h.id})">Copiar</button>
-        </div>
-      </div>
-      <div class="hist-sc">📍 ${h.scenario} · ${h.formato}</div>
-      <div class="hist-preview">${h.prompt.substring(0,80)}…</div>
-      <div class="hist-date">${h.date}</div>
-    </div>
-  `).join('');
-}
-
-function copyHistItem(id){
-  const entry = history.find(h=>h.id===id);
-  if(!entry) return;
-  navigator.clipboard.writeText(entry.prompt).then(()=>{
-    const btns = document.querySelectorAll('.hist-copy');
-    // encontrar o btn pelo contexto
-  });
-}
-
-function exportHistory(){
-  if(!history.length){ alert('Nenhum prompt gerado ainda.'); return; }
-  const txt = history.map((h,i)=>`#${i+1} — ${h.date}\nCarro: ${h.car}\nCenário: ${h.scenario}\nPessoas: ${h.pessoas}\nFormato: ${h.formato}\n\nPROMPT:\n${h.prompt}\n\n${'─'.repeat(60)}`).join('\n\n');
-  const blob = new Blob([txt], {type:'text/plain'});
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = 'georgia-frc-prompts.txt';
-  a.click();
-}
-
-function clearHistory(){
-  if(!confirm('Apagar todo o histórico?')) return;
-  history = [];
-  try { localStorage.removeItem('georgia_history'); } catch(e){}
-  updateHistCount();
-  renderHistPanel();
+  const base='cartoon, CGI, illustration, overexposed, distorted proportions, missing wheels, unrealistic skin, plastic look, stock photo look, fake smile, 3D render, lens distortion artifacts, merged fingers, floating limbs';
+  const ignored=getRefIgnored();
+  const ignoredStr=ignored.length>0?', '+ignored.join(', '):'';
+  if(S.scenarioId&&S.scenarioId.includes('night')) return base+ignoredStr+', daytime, bright sky, flat lighting';
+  return base+ignoredStr+', nighttime, overcast sky, flat unnatural lighting';
 }
 
 function generate(){
-  if(!S.modelId||!S.scenarioId) return;
-  const car=findModel(S.modelId);
-  const sc=findScenario(S.scenarioId);
-  const age=AGE_GROUPS.find(a=>a.id===S.ageId);
-  const cat=findCatByModel(S.modelId);
+  if(!S.modelId||!S.scenarioId)return;
+  const car=findModel(S.modelId);const sc=findScenario(S.scenarioId);const age=AGE_GROUPS.find(a=>a.id===S.ageId);const cat=findCatByModel(S.modelId);
 
   document.getElementById('emptyState').style.display='none';
   const card=document.getElementById('outputCard');
-  card.classList.remove('show');
-  void card.offsetWidth;
-  card.classList.add('show');
+  card.classList.remove('show');void card.offsetWidth;card.classList.add('show');
 
-  document.getElementById('promptText').textContent = buildPrompt();
-  document.getElementById('negText').textContent = buildNeg();
+  const prompt=buildPrompt();
+  document.getElementById('promptText').textContent=prompt;
+  document.getElementById('negText').textContent=buildNeg();
 
-  document.getElementById('outMeta').innerHTML = `
+  document.getElementById('outMeta').innerHTML=`
     <span class="tag car">${cat.icon} ${car.name}</span>
     <span class="tag loc">📍 ${sc.name}</span>
-    <span class="tag ppl">${S.charCount===0?'🚗 Só o carro':'👥 '+S.charCount+' pessoa'+(S.charCount>1?'s':'')+ ' · '+age.label}</span>
+    <span class="tag">${S.charCount===0?'só o carro':'👥 '+S.charCount+' pessoa'+(S.charCount>1?'s':'')+' · '+S.ageIds.map(id=>AGE_GROUPS.find(a=>a.id===id)?.label||'').filter(Boolean).join('+')}</span>
     <span class="tag">${S.formato}</span>
     <span class="tag">${S.tom}</span>
     <span class="tag">${S.angulo}</span>
   `;
 
-  saveToHistory(buildPrompt(), {
-    car: car.name,
-    scenario: sc.name,
-    pessoas: S.charCount + ' pessoa(s) · ' + (AGE_GROUPS.find(a=>a.id===S.ageId)?.label||''),
-    formato: S.formato
-  });
-  document.getElementById('jsonText').textContent = JSON.stringify({
-    gerado_em: new Date().toLocaleDateString('pt-BR'),
-    categoria: cat.name,
-    modelo: car.name,
-    cenario: sc.name,
-    cidade: Object.entries(SCENARIOS).find(([_,scs])=>scs.some(s=>s.id===S.scenarioId))?.[0]||'',
-    personagens: { quantidade:S.charCount, faixa_etaria:age.range, perfil:S.profileId },
-    opcoes: { formato:S.formato, tom:S.tom, angulo:S.angulo, acao:S.acao }
-  },null,2);
-
+  const jsonData={gerado_em:new Date().toLocaleDateString('pt-BR'),categoria:cat.name,modelo:car.name,cenario:sc.name,cidade:Object.entries(SCENARIOS).find(([,scs])=>scs.some(s=>s.id===S.scenarioId))?.[0]||'',personagens:{quantidade:S.charCount,faixas_etarias:S.charCount>0?S.ageIds.join('+'):'n/a',perfil:S.charCount>0?S.profileId:'n/a'},opcoes:{formato:S.formato,tom:S.tom,angulo:S.angulo,acao:S.acao}};
+  document.getElementById('jsonText').textContent=JSON.stringify(jsonData,null,2);
   document.getElementById('jsonPre').classList.remove('show');
   document.getElementById('jsonToggle').classList.remove('open');
+
+  // Save to history
+  saveToHistory({model:car.name,scenario:sc.name,prompt});
 }
 
 function copyPrompt(){
   navigator.clipboard.writeText(document.getElementById('promptText').textContent).then(()=>{
-    const btn=event.currentTarget;
-    const orig=btn.innerHTML;
+    const btn=event.currentTarget;const orig=btn.innerHTML;
     btn.innerHTML='<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg> Copiado!';
     setTimeout(()=>btn.innerHTML=orig,2000);
   });
@@ -957,73 +917,76 @@ function toggleJson(){
 }
 
 function resetAll(){
-  S={catId:null,modelId:null,scenarioId:null,charCount:1,ageId:'adults',profileId:'Família em férias',formato:'9:16',tom:'Cinematic',angulo:'Lateral',acao:'Em movimento'};
+  S={catId:null,modelId:null,scenarioId:null,charCount:1,ageIds:['adults'],profileId:'Família em férias',formato:'9:16',tom:'Cinematic',angulo:'Lateral',acao:'Em movimento'};
   renderCats();renderScenarios();renderCharacters();renderOptions();
   updateSummary();updateGenBtn();
   document.getElementById('emptyState').style.display='flex';
   document.getElementById('outputCard').classList.remove('show');
+  clearRef();
   switchTab('cars');
 }
 
+/* ============================================================
+   PRESETS
+============================================================ */
+function applyPreset(name){
+  const presets={
+    copa:{tom:'Dramático',angulo:'Frontal',acao:'Chegando',scenarioId:'hardrock'},
+    verao:{tom:'Lifestyle',angulo:'Lateral',acao:'Em movimento',scenarioId:'ocean_sunset'},
+    premium:{tom:'Premium/Luxo',angulo:'¾ traseiro',acao:'Saindo do carro',scenarioId:'brickell'},
+    familia:{tom:'Família',acao:'Entrando no carro',scenarioId:'disney_entrance',charCount:4,ageIds:['adults','kids'],profileId:'Família em férias'},
+  };
+  const p=presets[name];if(!p)return;
+  Object.assign(S,p);
+  renderScenarios();renderCharacters();renderOptions();updateSummary();updateGenBtn();
+  if(S.modelId) generate(); else{alert('Selecione um carro primeiro para usar o preset.');switchTab('cars');}
+}
 
-const PRESETS = [
-  {id:'copa',   icon:'🏆', label:'Copa do Mundo', config:{ scenarioId:'hardrock',      formato:'9:16', tom:'Dramático',    angulo:'Frontal',    acao:'Chegando',         charCount:3, ageId:'adults', profileId:'Grupo de amigos' }},
-  {id:'verao',  icon:'☀️', label:'Verão 2026',    config:{ scenarioId:'ocean_sunset',  formato:'4:5',  tom:'Lifestyle',    angulo:'Lateral',    acao:'Em movimento',     charCount:2, ageId:'adults', profileId:'Casal' }},
-  {id:'luxo',   icon:'💎', label:'Premium',       config:{ scenarioId:'brickell',      formato:'9:16', tom:'Premium/Luxo', angulo:'¾ traseiro', acao:'Saindo do carro',  charCount:1, ageId:'adults', profileId:'Executivo' }},
-  {id:'familia',icon:'👨‍👩‍👧', label:'Família',      config:{ scenarioId:'disney_entrance',formato:'4:5', tom:'Família',     angulo:'Lateral',    acao:'Entrando no carro',charCount:4, ageId:'adults', profileId:'Família em férias' }},
-];
+/* ============================================================
+   HISTORY
+============================================================ */
+function saveToHistory({model,scenario,prompt}){
+  const key='georgia_history';
+  let hist=[];try{hist=JSON.parse(localStorage.getItem(key)||'[]');}catch(e){}
+  const entry={date:new Date().toLocaleString('pt-BR',{day:'2-digit',month:'2-digit',year:'numeric',hour:'2-digit',minute:'2-digit'}),model,scenario,preview:prompt.slice(0,90)+'…',prompt};
+  hist.unshift(entry);if(hist.length>10)hist=hist.slice(0,10);
+  localStorage.setItem(key,JSON.stringify(hist));
+  renderHistory();
+}
 
-function applyPreset(id){
-  const p = PRESETS.find(x=>x.id===id);
-  if(!p) return;
-  Object.assign(S, p.config);
-  renderCats(); renderScenarios(); renderCharacters(); renderOptions();
-  updateSummary(); updateGenBtn();
-  switchTab('scenarios');
-  document.querySelectorAll('.preset-btn').forEach(b=>b.classList.remove('active-preset'));
-  const btn = document.getElementById('preset-'+id);
-  if(btn) btn.classList.add('active-preset');
+function renderHistory(){
+  const key='georgia_history';
+  let hist=[];try{hist=JSON.parse(localStorage.getItem(key)||'[]');}catch(e){}
+  const list=document.getElementById('histList');
+  if(!hist.length){list.innerHTML='<div class="hist-empty">Nenhum prompt gerado ainda</div>';return;}
+  list.innerHTML=hist.map((h,i)=>`
+    <div class="hist-item">
+      <div class="hist-item-date">${h.date}</div>
+      <div class="hist-item-model">${h.model}</div>
+      <div class="hist-item-scene">📍 ${h.scenario}</div>
+      <div class="hist-item-preview">${h.preview}</div>
+      <button class="hist-item-copy" onclick="copyHistItem(${i})">📋 Copiar prompt</button>
+    </div>
+  `).join('');
+}
+
+function copyHistItem(i){
+  let hist=[];try{hist=JSON.parse(localStorage.getItem('georgia_history')||'[]');}catch(e){}
+  if(hist[i]) navigator.clipboard.writeText(hist[i].prompt).then(()=>alert('Copiado!'));
+}
+
+function clearHistory(){
+  if(confirm('Limpar todo o histórico?')){localStorage.removeItem('georgia_history');renderHistory();}
+}
+
+function toggleHistory(){
+  document.getElementById('histOverlay').classList.toggle('open');
+  document.getElementById('histBackdrop').classList.toggle('open');
+  renderHistory();
 }
 
 /* INIT */
-renderCats();
-renderScenarios();
-renderCharacters();
-renderOptions();
-updateSummary();
-updateGenBtn();
-
-// Render presets
-document.getElementById('presetsRow').innerHTML = PRESETS.map(p=>`
-  <button id="preset-${p.id}" class="preset-btn" onclick="applyPreset('${p.id}')" style="display:flex;align-items:center;gap:6px;padding:6px 12px;border:1px solid var(--border);border-radius:6px;background:none;color:var(--muted);font-size:11px;font-family:'DM Sans',sans-serif;cursor:pointer;transition:all .15s;white-space:nowrap;">
-    <span>${p.icon}</span><span>${p.label}</span>
-  </button>
-`).join('');
-
-// Preset hover style
-const ps = document.createElement('style');
-ps.textContent = '.preset-btn:hover{border-color:var(--border2)!important;color:var(--white)!important;background:rgba(245,240,232,.04)!important;} .active-preset{border-color:var(--accent)!important;color:var(--accent)!important;background:rgba(224,32,32,.08)!important;}';
-document.head.appendChild(ps);
-
-// Init histórico badge
-updateHistCount();
+renderCats();renderScenarios();renderCharacters();renderOptions();updateSummary();updateGenBtn();
 </script>
-
-
-<!-- HISTORY PANEL -->
-<div class="hist-overlay" id="histOverlay" onclick="closeHistory()"></div>
-<div class="hist-panel" id="histPanel">
-  <div class="hist-head">
-    <span class="hist-title">Histórico</span>
-    <button class="hist-close" onclick="closeHistory()">✕</button>
-  </div>
-  <div class="hist-body" id="histBody">
-    <div class="hist-empty">Nenhum prompt gerado ainda.</div>
-  </div>
-  <div class="hist-foot">
-    <button class="hist-clear" onclick="clearHistory()">Limpar histórico</button>
-    <button class="hist-export" onclick="exportHistory()">Exportar .txt</button>
-  </div>
-</div>
 </body>
 </html>
